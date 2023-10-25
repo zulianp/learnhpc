@@ -3,8 +3,8 @@
 - title: Home
   url: /
 
-- title: Resources
-  url: /learn/
+- title: Courses
+  url: /courses/
   sublinks:
     - title: Introduction to parallel computing for machine learning 
-      url: /learn/intro
+      url: /courses/intro
