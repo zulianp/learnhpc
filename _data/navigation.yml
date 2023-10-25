@@ -1,0 +1,10 @@
+# Belongs at: /_data/navigation.yml
+
+- title: Home
+  url: /
+
+- title: Resources
+  url: /learn/
+  sublinks:
+    - title: Introduction to parallel computing for machine learning 
+      url: /learn/intro
