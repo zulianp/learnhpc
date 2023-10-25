@@ -1,6 +1,6 @@
 lsi: false
 safe: true
-source: [./site]
+source: [site]
 incremental: false
 highlighter: rouge
 gist:
