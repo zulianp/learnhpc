@@ -1,1 +1,1 @@
-# Learn HPC
+{{ site.data.navigation}}
