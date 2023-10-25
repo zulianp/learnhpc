@@ -1,1 +1,1 @@
-# Introduction to parallel computing for machine learning
+# Learn HPC
