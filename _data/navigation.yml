@@ -6,8 +6,7 @@
 - title: Courses
   url: /courses/
   sublinks:
-    - title: Getting started
-      url: /courses/coding/0_getting_started
-  sublinks:
     - title: Introduction to parallel computing for machine learning 
       url: /courses/intro
+    - title: Getting started
+      url: /courses/coding/0_getting_started
