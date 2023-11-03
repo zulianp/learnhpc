@@ -6,7 +6,7 @@
 set -e
 
 # Print every command to the command line
-set -x
+# set -x
 
 # Create a python virtual environment (venv)
 python3 -m venv venv
