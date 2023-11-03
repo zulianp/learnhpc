@@ -21,25 +21,32 @@ In this Section we learn how to:
 3. Populate it with dependencies.
 4. Deactivate it.
 
-The following bash script commands show all the required commands
+The following bash script shows all the required commands
 
 [create_and_activate_python_environment.sh](https://github.com/zulianp/learnhpc/blob/a8670c99489035695e031d5de04b169d4a3e692c/courses/coding/python/create_and_activate_python_environment.sh#L1-L23)
 
-You can run this script by going to the `learnhpc/courses/coding/python` folder and typing `./create_and_activate_python_environment.sh`. As you can see it will run a bunch of commands and then return. 
+You can run this script by going to the `learnhpc/courses/coding/python` folder and typing 
+
+```bash
+./create_and_activate_python_environment.sh
+``` 
+
+As you can see it will run a bunch of commands and then return. 
 
 If everything went smoothly we can start running python scripts. First we start our venv
 
-```
+```bash
  source venv/bin/activate 	
 ```
 
 We run our script and check if we see library and version number
-```
+
+```bash
 ./hello.py
 ```
 
 We can now end our session by entering
 
-```
+```bash
 deactivate
 ```
