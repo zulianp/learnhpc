@@ -10,7 +10,7 @@ Before starting this course make sure you have the following installed in your s
 
 - A development toolkit (e.g., X-Code command line tools on MacOS, Visual Studio on Windows, ...)
 - A `C/C++` compiler (e.g., gcc, clang, or vsc)
-- gThe `Python 3` interpreter
+- The `Python 3` interpreter
 
 ## Installation of Python libraries and virtual environment
 
@@ -23,7 +23,7 @@ In this Section we learn how to:
 
 The following bash script commands show all the required commands
 
-https://github.com/zulianp/learnhpc/blob/a8670c99489035695e031d5de04b169d4a3e692c/courses/coding/python/create_and_activate_python_environment.sh#L1-L23
+[create_and_activate_python_environment.sh](https://github.com/zulianp/learnhpc/blob/a8670c99489035695e031d5de04b169d4a3e692c/courses/coding/python/create_and_activate_python_environment.sh#L1-L23)
 
 You can run this script by going to the `learnhpc/courses/coding/python` folder and typing `./create_and_activate_python_environment.sh`. As you can see it will run a bunch of commands and then return. 
 
