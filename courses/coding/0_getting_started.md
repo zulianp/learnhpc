@@ -1,16 +1,31 @@
 # Getting started
 
-We will use mainly three technologies during this course
+We will use mainly four technologies during this course
 
 1. The `C` programming language.
 2. The `Python` scripting language.
 3. The Linux/Unix command line by means of `bash` scripts.
+4. Git
 
 Before starting this course make sure you have the following installed in your system:
 
 - A development toolkit (e.g., X-Code command line tools on MacOS, Visual Studio on Windows, ...)
 - A `C/C++` compiler (e.g., gcc, clang, or vsc)
 - The `Python 3` interpreter
+- Git
+
+First thing first, clone this repository on your machine
+
+```bash
+git clone https://github.com/zulianp/learnhpc.git
+```
+
+If you already did make sure that you have the latest version 
+
+```bash
+cd learnhpc
+git pull
+```
 
 ## Installation of Python libraries and virtual environment
 
@@ -42,7 +57,7 @@ If everything went smoothly we can start running python scripts. First we start 
 We run our script and check if we see library and version number
 
 ```bash
-./hello.py
+python3 hello.py
 ```
 
 We can now end our session by entering
