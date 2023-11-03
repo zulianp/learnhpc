@@ -27,7 +27,7 @@ cd learnhpc
 git pull
 ```
 
-## Installation of Python libraries and virtual environment
+## Installation of Python dependencies and virtual environment
 
 In this Section we learn how to:
 
@@ -65,3 +65,5 @@ We can now end our session by entering
 ```bash
 deactivate
 ```
+
+More information can be found [here](https://docs.python.org/3/library/venv.html).
