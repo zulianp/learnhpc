@@ -20,7 +20,7 @@ First thing first, clone this repository on your machine
 git clone https://github.com/zulianp/learnhpc.git
 ```
 
-If you already did make sure that you have the latest version 
+If you already did, make sure that you have the latest version 
 
 ```bash
 cd learnhpc
@@ -32,8 +32,8 @@ git pull
 We need the following technologies
 
 - [OpenMP](https://www.openmp.org/)
-- [CUDA](https://developer.nvidia.com/cuda-downloads)
 - Any variant of the MPI standard ([MPICH](https://www.mpich.org/), [OpenMPI](https://www.open-mpi.org/))
+- [CUDA](https://developer.nvidia.com/cuda-downloads) (Optional)
 
 All these technologies can be installed by means of package managers.
 For instance 
@@ -41,7 +41,7 @@ For instance
 - Homebrew or MacPorts on MacOS
 - Pacman, Yum, Apt on Linux platforms
 
-## Installation of Python dependencies and virtual environment
+## Installation of `Python` dependencies and virtual environment
 
 In this Section we see how to:
 
