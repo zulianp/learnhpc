@@ -4,10 +4,10 @@ We will use mainly four technologies during this course
 
 1. The `C` programming language.
 2. The `Python` scripting language.
-3. The Linux/Unix command line by means of `bash` scripts.
+3. The Linux/Unix command line by means of `bash` scripts and basic command line tools.
 4. Git
 
-Before starting this course make sure you have the following installed in your system:
+Before starting any module make sure you have the following installed in your system:
 
 - A development toolkit (e.g., X-Code command line tools on MacOS, Visual Studio on Windows, ...)
 - A `C/C++` compiler (e.g., gcc, clang, or vsc)
@@ -27,9 +27,23 @@ cd learnhpc
 git pull
 ```
 
+## Installation of `C` dependencies
+
+We need the following technologies
+
+- [OpenMP](https://www.openmp.org/)
+- [CUDA](https://developer.nvidia.com/cuda-downloads)
+- Any variant of the MPI standard ([MPICH](https://www.mpich.org/), [OpenMPI](https://www.open-mpi.org/))
+
+All these technologies can be installed by means of package managers.
+For instance 
+
+- Homebrew or MacPorts on MacOS
+- Pacman, Yum, Apt on Linux platforms
+
 ## Installation of Python dependencies and virtual environment
 
-In this Section we learn how to:
+In this Section we see how to:
 
 1. Create a virtual environment (venv).
 2. Activate it.
