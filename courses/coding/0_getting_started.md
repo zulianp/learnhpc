@@ -33,7 +33,7 @@ We need the following technologies
 
 - [OpenMP](https://www.openmp.org/)
 - Any variant of the MPI standard ([MPICH](https://www.mpich.org/), [OpenMPI](https://www.open-mpi.org/))
-- [CUDA](https://developer.nvidia.com/cuda-downloads) (Optional)
+- [CUDA](https://developer.nvidia.com/cuda-downloads) (Optional since you need an NVIDIA graphics card to use it)
 
 All these technologies can be installed by means of package managers.
 For instance 

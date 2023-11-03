@@ -3,7 +3,7 @@
 - title: Home
   url: /
 
-- title: Courses
+- title: Modules
   url: /courses/
   sublinks:
     - title: Getting started
