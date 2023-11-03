@@ -8,9 +8,9 @@ We will use mainly three technologies during this course
 
 Before starting this course make sure you have the following installed in your system:
 
-- A development toolkit (e.g., X-Code on MacOS, Visual Studio on Windows, ...)
+- A development toolkit (e.g., X-Code command line tools on MacOS, Visual Studio on Windows, ...)
 - A `C/C++` compiler (e.g., gcc, clang, or vsc)
-- The `Python 3` interpreter
+- gThe `Python 3` interpreter
 
 ## Installation of Python libraries and virtual environment
 
