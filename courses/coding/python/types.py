@@ -10,7 +10,7 @@ def hello_type(dtype):
 	filename = f'array.{dtype.name}.raw'
 
 	# Print the array content to the command line
-	print(f'Content for {filename}: {a1}')
+	print(f'Content of {filename}: {a1}')
 
 	# Write array content to disk as binary format
 	a1.tofile(filename)
@@ -22,8 +22,15 @@ def hello_type(dtype):
 	# We compute the difference between the two arrays...
 	diff = a1 - a2
 
-	# and print it the the command line again. We expect [0, 0, 0]
-	print(f'Diff {diff}')
+	norm_diff = np.sum(np.abs(diff))
+	ok = norm_diff == 0
+	# and print it the the command line if the check fails
+	# It is a good idea to always check our assumptions about
+	# a piece of code.
+	if not ok:
+		print(f'{a1} != {a2}')
+
+
 
 # Integer
 hello_type(np.int32)
@@ -36,3 +43,4 @@ hello_type(np.float32)
 
 # Double precision floating point number
 hello_type(np.float64)
+
