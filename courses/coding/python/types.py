@@ -30,8 +30,6 @@ def hello_type(dtype):
 	if not ok:
 		print(f'{a1} != {a2}')
 
-
-
 # Integer
 hello_type(np.int32)
 
@@ -43,4 +41,3 @@ hello_type(np.float32)
 
 # Double precision floating point number
 hello_type(np.float64)
-
