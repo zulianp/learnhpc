@@ -12,7 +12,7 @@ C_BINARIES_DIR=../C
 export PATH=$PYTHON_SCRIPTS_DIR:$PATH
 export PATH=$C_BINARIES_DIR:$PATH
 
-# Activate the Python environment
+# Activate our Python environment
 source $PYTHON_SCRIPTS_DIR/venv/bin/activate
 
 # Lets say hello to see if all packages are in order
