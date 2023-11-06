@@ -50,6 +50,7 @@ echo "--------------------"
 # we expect.
 # On the left we have octal offsets of the bytes in
 # the binary data (14 is equal to 12 in decimal units).
+# Use `man od` for more details
 
 echo "Printing array content with \"od\""
 echo "int32 array"

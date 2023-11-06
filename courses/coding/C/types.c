@@ -6,30 +6,30 @@
 static void *read_array(const char *path, const size_t element_size,
                         const size_t n_elements) {
 
-  // For write use "wb" instead
+  // Extra: For write use "wb" instead
   FILE *f = fopen(path, "rb");
   if (!f) {
     // File not found
     fprintf(stderr, "Could not open file: %s\n", path);
 
-    // Not good practice but we leave it here for brevity
+    // Not a good practice, but we leave it here for brevity
     exit(EXIT_FAILURE);
   }
 
   // Allocate memory
   void *ptr = malloc(n_elements * element_size);
 
-  // For write use fwrite instead
+  // Extra: For write use fwrite instead
   size_t n_elements_read = fread(ptr, element_size, n_elements, f);
 
   fclose(f);
 
   if (n_elements_read != n_elements) {
-    // Return null if file not found
+    // We make sure that we are reading the correct file by checking sizes
     fprintf(stderr, "File %s has wrong length. %lu != %lu\n", path, n_elements,
             n_elements_read);
 
-    // Not good practice but we leave it here for brevity
+    // Not a good practice, but we leave it here for brevity
     exit(EXIT_FAILURE);
   }
 
@@ -51,7 +51,8 @@ int main(int argc, const char *argv[]) {
   double *array_float64 = read_array("array.float64.raw", sizeof(double), n);
 
   {
-    // Print
+    // Print the content of the 4 arrays
+
     printf("Content of array.int32.raw: [");
     for (size_t i = 0; i < n; i++) {
       printf("%" PRId32 " ", array_int32[i]);
@@ -87,5 +88,6 @@ int main(int argc, const char *argv[]) {
     free(array_float64);
   }
 
+  // Succesful execution is comunicated to our bash script here
   return EXIT_SUCCESS;
 }

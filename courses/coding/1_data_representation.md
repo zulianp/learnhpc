@@ -6,7 +6,7 @@ In this course we will **NOT** use such formats. We instead handle the binary ar
 This choice is motivated by the following reasons
 
 - **Simplicity**. We make our own simple formats. We do not want to spend time in understanding complex data-structures and depend on too many external libraries.
-- **Efficiency**. Binary data is exactly the same on disk and in your memory (RAM). We can have minimal input/output code that is very efficient.
+- **Efficiency**. Binary data is exactly the same on disk and in the CPU memory (RAM). We can have minimal input/output code that is very efficient.
 - **Debugging**. Being able to simply read/write any data to disk is quite handy for inspecting and debugging.
 - **Interoperability**. Data is easily shared between different runtimes and languages.
 
