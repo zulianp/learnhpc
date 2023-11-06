@@ -10,7 +10,7 @@ We will use mainly five technologies during this course
 
 ## Why this combination of technologies
 
-**C programming** is advantageous due to its efficiency, portability across different platforms, scalability for both small and large projects, widespread usage with extensive libraries, and the ability to directly access hardware, making it essential for system-level development.
+**C programming** is advantageous due to its efficiency, portability across different platforms, scalability for both small and large projects, widespread usage with extensive libraries, and the ability to directly access hardware, making it essential for high-performance code development.
 
 **Makefiles** automate builds, reduce unnecessary compilation, improve project organization, and ensure platform-independent processes, streamlining development tasks.
 
@@ -53,8 +53,8 @@ We need the following technologies
 All these technologies can be installed by means of package managers.
 For instance 
 
-- Homebrew or MacPorts on MacOS
-- Pacman, Yum, Apt on Linux platforms
+- [Homebrew](https://brew.sh/) or [MacPorts](https://www.macports.org/) on MacOS
+- [Pacman](https://wiki.archlinux.org/title/pacman), [Apt](https://linux.die.net/man/8/apt-get), etc.. on Linux platforms
 
 ## Installation of `Python` dependencies and virtual environment
 
@@ -96,5 +96,7 @@ We can now end our session by entering
 ```bash
 deactivate
 ```
+
+You typical workflow will consist of activating the environment, develop, test, and run your scripts, and finally and eventually deactivate it when you are done.
 
 More information can be found [here](https://docs.python.org/3/library/venv.html).
