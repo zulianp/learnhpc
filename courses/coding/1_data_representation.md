@@ -31,6 +31,7 @@ The [types.sh](https://github.com/zulianp/learnhpc/blob/2cadfddb36433f2abc7a6c16
 1) Understand the content of the files `types.{sh,py,c}`.
 
 2) Prepare one `bash` script, one `C` program, and one `Python` script with the following functionalities: The `bash` script should run the entire exercise without additional user input. The workflow is the following:
+
 	1. With `Python` Create an array `x` of `double`s (`float64`) of length `9` with entries `x[i] = i*2`, where `i` is in range {% raw %} $[0, 9)$ {% endraw %} . Write the array to disk.
 	2. With `C` read the array and apply the following filter `x[i] = x[i]/2`. Write the array to disk.
 	3. Use `od` to print the array content.
