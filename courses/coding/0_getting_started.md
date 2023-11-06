@@ -8,6 +8,8 @@ We will use mainly five technologies during this course
 4. The Linux/Unix command line by means of `bash` scripts and basic command line tools.
 5. The [`Git`](https://git-scm.com/) version control system.
 
+All the tutorials will make use of the `console` / `terminal` command line application available in your system.
+
 ## Why this combination of technologies
 
 **C programming** is advantageous due to its efficiency, portability across different platforms, scalability for both small and large projects, widespread usage with extensive libraries, and the ability to directly access hardware, making it essential for high-performance code development.
