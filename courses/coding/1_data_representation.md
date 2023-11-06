@@ -24,7 +24,7 @@ A complete table of types in `numpy` and `C` can be found [HERE](https://numpy.o
 Let us open our console and lets go to `learnhpc/courses/coding/bash`.
 Run the example script `./types.sh`. 
 
-The [types.sh](https://github.com/zulianp/learnhpc/blob/2cadfddb36433f2abc7a6c16434fcd547dc8deed/courses/coding/bash/types.sh) script, in combination with [types.py](https://github.com/zulianp/learnhpc/blob/2cadfddb36433f2abc7a6c16434fcd547dc8deed/courses/coding/python/types.py) and [types.c](https://github.com/zulianp/learnhpc/blob/2cadfddb36433f2abc7a6c16434fcd547dc8deed/courses/coding/C/types.c), shows how we can write and read arrays from `Python`, `C`, and inspect them with `bash`. 
+The [types.sh](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/bash/types.sh) script, in combination with [types.py](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/python/types.py) and [types.c](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/C/types.c), shows how we can write and read arrays from `Python`, `C`, and inspect them with `bash`. 
 
 ### Exercise
 
