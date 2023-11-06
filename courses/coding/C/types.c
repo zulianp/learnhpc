@@ -3,8 +3,8 @@
 #include <stdio.h>  // stderr
 #include <stdlib.h>
 
-void *read_array(const char *path, const size_t element_size,
-                 const size_t n_elements) {
+static void *read_array(const char *path, const size_t element_size,
+                        const size_t n_elements) {
 
   // For write use "wb" instead
   FILE *f = fopen(path, "rb");
@@ -77,15 +77,15 @@ int main(int argc, const char *argv[]) {
     printf("]\n");
   }
 
-  // Free memory (In C there is no automatic memory management. You have to free
-  // what you allocate).
-
   {
+    // Free memory (In C there is no automatic memory management. You have to
+    // free what you allocate).
+
     free(array_int32);
     free(array_int64);
     free(array_float32);
     free(array_float64);
   }
-  
+
   return EXIT_SUCCESS;
 }
