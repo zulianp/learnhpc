@@ -6,6 +6,9 @@
 static void *read_array(const char *path, const size_t element_size,
                         const size_t n_elements) {
 
+  // Allocate memory
+  void *ptr = malloc(n_elements * element_size);
+
   // Extra: For write use "wb" instead
   FILE *f = fopen(path, "rb");
   if (!f) {
@@ -15,9 +18,6 @@ static void *read_array(const char *path, const size_t element_size,
     // Not a good practice, but we leave it here for brevity
     exit(EXIT_FAILURE);
   }
-
-  // Allocate memory
-  void *ptr = malloc(n_elements * element_size);
 
   // Extra: For write use fwrite instead
   size_t n_elements_read = fread(ptr, element_size, n_elements, f);

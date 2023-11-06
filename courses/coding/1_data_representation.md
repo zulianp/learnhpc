@@ -17,6 +17,10 @@ A complete table of types in `C` can be found [HERE](https://en.wikipedia.org/wi
 A complete table of types in `numpy` and `C` can be found [HERE](https://numpy.org/doc/stable/user/basics.types.html).
 
 
+## Example codes
+
+In the folder `learnhpc/courses/coding` we can find the example codes related to various examples. We have one folder for each language (e.g., `C`, `python`, `bash`).
+
 ## Arrays
 
 [Arrays](https://en.wikipedia.org/wiki/Array_(data_structure)) will be the basic data-structure which we will use. Any other data-structure will be a collection of arrays and associated [metadata](https://en.wikipedia.org/wiki/Metadata).
