@@ -1,8 +1,3 @@
----
-usemathjax: true
----
-
-{% include head.html %}
 {% include navigation.html %}
 
 (UNDER CONSTRUCTION)
