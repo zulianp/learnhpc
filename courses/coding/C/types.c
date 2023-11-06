@@ -1,5 +1,5 @@
-#include <inttypes.h>
-#include <stdint.h> // int32_t int64_t
+#include <inttypes.h> // PRId32, PRId64
+#include <stdint.h> // int32_t, int64_t
 #include <stdio.h>  // stderr
 #include <stdlib.h>
 
