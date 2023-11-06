@@ -74,6 +74,7 @@ echo "--------------------"
 
 # Remove the example binary files
 rm array.*.raw
+rm $C_BINARIES_DIR/types.exe
 
 # Deactivate our python environment
 deactivate
