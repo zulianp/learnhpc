@@ -22,7 +22,7 @@ We will use mainly five technologies during this course
 
 ## First things first
 
-Before starting any module make sure you have the following installed in your system:
+Before starting make sure you have the following installed in your system:
 
 - A development toolkit (e.g., X-Code command line tools on MacOS, Visual Studio on Windows, ...)
 - A `C/C++` compiler (e.g., gcc, clang, or vsc)
