@@ -32,7 +32,7 @@ The [types.sh](https://github.com/zulianp/learnhpc/blob/2cadfddb36433f2abc7a6c16
 
 2) Prepare one `bash` script, one `C` program, and one `Python` script with the following functionalities: The `bash` script should run the entire exercise without additional user input. The workflow is the following:
 
-1. With `Python` Create an array `x` of type `double` (`float64`) of length `9` with entries `x[i] = i*2`, where `i` is in range `[0, 9)`. Write the array to disk.
+1. With `Python` Create an array `x` of type `double` (`float64`) of length `9` with entries `x[i] = i*2`, where `i` is in range \([0, 9)\). Write the array to disk.
 2. With `C` read the array and apply the following filter `x[i] = x[i]/2`. Write the array to disk.
 3. Use `od` to print the array content.
 4. Read the two arrays with python and plot them using `matplotlib`, save the plot to a `png` image.
