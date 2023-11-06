@@ -3,10 +3,10 @@
 We will use mainly five technologies during this course
 
 1. The `C` programming language.
-2. `Makefile`.
+2. [`Makefile`](https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/).
 3. The `Python` language.
 4. The Linux/Unix command line by means of `bash` scripts and basic command line tools.
-5. The `Git` version control system.
+5. The [`Git`](https://git-scm.com/) version control system.
 
 ## Why this combination of technologies
 
