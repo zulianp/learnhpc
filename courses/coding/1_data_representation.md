@@ -8,6 +8,7 @@ This choice is motivated by the following reasons
 - **Keep it simple**. We make our own simple formats. We do not want to spend time in understanding complex data-structures and depend on too many external libraries.
 - **Efficiency**. Binary data is exactly the same on disk and in your memory (RAM). We can have minimal input/output code that is very efficient.
 - **Debugging**. Being able to simply read/write any data to disk is quite handy for inspecting and debugging.
+- **Interoperability**. Data is easily shared between different runtimes and languages.
 
 ## Basic resources
 
@@ -29,10 +30,13 @@ The [types.sh]() script, in combination with [types.py](https://github.com/zulia
 
 1) Understand the content of the files `types.{sh,py,c}`.
 
-2) Prepare one `bash` script, one `C` program, and one `Python` script with the following functionalities:
-
-- The `bash` script should run the entire exercise without additional user input
-(TODO)
+2) Prepare one `bash` script, one `C` program, and one `Python` script with the following functionalities: The `bash` script should run the entire exercise without additional user input. The workflow is the following:
+	1. With `Python` Create an array `x` of `double`s (`float64`) of length `9` with entries `x[i] = i*2`, where `i` is in range $[0, 9)$. Write the array to disk.
+	2. With `C` read the array and apply the following filter `x[i] = x[i]/2`. Write the array to disk.
+	3. Use `od` to print the array content.
+	4. Read the two arrays with python and plot them using `matplotlib`, save the plot to a `png` image.
+ 
+ *HINT*: Most of the functions and commands can be found in `types.{sh,py,c}`, except for `matplotlib` (use Google or your favorite search engine).
 
 
 

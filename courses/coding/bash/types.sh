@@ -19,16 +19,16 @@ source $PYTHON_SCRIPTS_DIR/venv/bin/activate
 hello.py
 echo "--------------------"
 
-echo "Compiling C code"
-cd $C_BINARIES_DIR
-cc -Werror -Wextra -pedantic types.c -o types.exe
-cd $HERE
-
 # Run the types example script
 echo "Running `(which types.py)`"
 types.py
 
 echo "--------------------"
+
+echo "Compiling C code with `(which cc)`"
+cd $C_BINARIES_DIR
+cc -Werror -Wextra -pedantic types.c -o types.exe
+cd $HERE
 
 echo "Running `(which types.exe)`"
 types.exe
@@ -52,12 +52,12 @@ echo "--------------------"
 # the binary data (14 is equal to 12 in decimal units).
 
 echo "Printing array content with \"od\""
-echo "Int32 array"
+echo "int32 array"
 echo ""
 od -i array.int32.raw
 echo "--------------------"
 
-echo "Int64 array"
+echo "int64 array"
 echo ""
 od -I array.int64.raw
 echo "--------------------"
