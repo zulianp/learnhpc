@@ -1,11 +1,26 @@
 # Getting started
 
-We will use mainly four technologies during this course
+We will use mainly five technologies during this course
 
 1. The `C` programming language.
-2. The `Python` scripting language.
-3. The Linux/Unix command line by means of `bash` scripts and basic command line tools.
-4. Git
+2. `Makefile`
+3. The `Python` language.
+4. The Linux/Unix command line by means of `bash` scripts and basic command line tools.
+5. Git
+
+## Why this combination of technologies
+
+**C programming** is advantageous due to its efficiency, portability across different platforms, scalability for both small and large projects, widespread usage with extensive libraries, and the ability to directly access hardware, making it essential for system-level development.
+
+**Makefiles** automate builds, reduce unnecessary compilation, improve project organization, and ensure platform-independent processes, streamlining development tasks.
+
+**Python**'s advantages include clear readability, extensive libraries, platform independence, versatility across applications, and strong community support, making it a popular and effective programming language.
+
+**Bash** is advantageous for scripting tasks, executing system commands, its default presence in Unix systems, and allowing interface customization.
+
+**Git** is essential for version control, enabling collaboration, backup, branching, merging, and benefiting from a vast community, streamlining software development processes.
+
+## First things first
 
 Before starting any module make sure you have the following installed in your system:
 
@@ -42,6 +57,8 @@ For instance
 - Pacman, Yum, Apt on Linux platforms
 
 ## Installation of `Python` dependencies and virtual environment
+
+Python virtual environments isolate project dependencies, preventing conflicts, simplifying management, ensuring reproducibility, maintaining system cleanliness, and easing deployment.
 
 In this Section we see how to:
 
