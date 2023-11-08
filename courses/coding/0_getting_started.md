@@ -32,6 +32,8 @@ Before starting make sure you have the following installed in your system:
 - The `Python 3` interpreter
 - Git
 
+NOTE: you can use `which cc`, `which git`, `which python3` in your command line to check if the tools are available and where are installed.
+
 First thing first, clone this repository on your machine
 
 ```bash
@@ -59,7 +61,7 @@ For instance
 - [Homebrew](https://brew.sh/) or [MacPorts](https://www.macports.org/) on MacOS
 - [Pacman](https://wiki.archlinux.org/title/pacman), [Apt](https://linux.die.net/man/8/apt-get), etc.. on Linux platforms
 
-NOTE: you can use `which cc`, `which git`, `which python3` in your command line to check if the tools are available and where are installed.
+
 
 
 ## Installation of `Python` dependencies and virtual environment
