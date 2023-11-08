@@ -10,6 +10,8 @@
       url: /courses/coding/0_getting_started
     - title: Data representation
       url: /courses/coding/1_data_representation
+    - title: Parallel execution
+      url: /courses/coding/2_parallel_execution
     - title: Introduction to parallel computing for machine learning 
       url: /courses/intro
 

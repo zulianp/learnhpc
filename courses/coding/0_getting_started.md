@@ -23,6 +23,7 @@ All the tutorials will make use of the `console` / `terminal` command line appli
 
 **Git** is essential for version control, enabling collaboration, backup, branching, merging, and benefiting from a vast community, streamlining software development processes.
 
+
 ## First things first
 
 Before starting make sure you have the following installed in your system:

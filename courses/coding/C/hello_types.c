@@ -36,7 +36,7 @@ static void *read_array(const char *path, const size_t element_size,
   return ptr;
 }
 
-int main(int argc, const char *argv[]) {
+int main(int argc, char *argv[]) {
   if (argc > 1) {
     fprintf(stderr, "usage %s\n", argv[0]);
     fprintf(stderr, "No arguments allowed!\n");
