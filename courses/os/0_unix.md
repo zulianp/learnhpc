@@ -1,12 +1,12 @@
 # The Unix system
 
-We will be using the console/terminal during this course. In this module see pointers to most basic knowledge
+We will be using the console/terminal during this course. In this module we see some pointers to most basic knowledge.
 
 ## File system organization
 
 We have to main locations in our filesystem
-- Root `/` is the top directory of our filesystem. Enter `cd /` and `ls -lah` to see what is inside.
-- Home directory `~` (`$HOME`). We can go the the home directory with the following commands, which are equivalent:
+- Root `/` is the top directory of our filesystem. Enter `cd /` and `ls -lah` to see what is inside. We typically do not want to write here.
+- Home directory `~` (`$HOME`). Our base of operations. We can go the the home directory with the following commands, which are equivalent:
 
 - `cd `
 - `cd ~`
