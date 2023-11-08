@@ -26,13 +26,13 @@ In the folder `learnhpc/courses/coding` we can find the example codes related to
 [Arrays](https://en.wikipedia.org/wiki/Array_(data_structure)) will be the basic data-structure which we will use. Any other data-structure will be a collection of arrays and associated [metadata](https://en.wikipedia.org/wiki/Metadata).
 
 Let us open our console and lets go to `learnhpc/courses/coding/bash`.
-Run the example script `./types.sh`. 
+Run the example script `./hello_types.sh`. 
 
-The [types.sh](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/bash/types.sh) script, in combination with [hello_types.py](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/python/types.py) and [types.c](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/C/types.c), shows how we can write and read arrays from `Python`, `C`, and inspect them with `bash`. 
+The [hello_types.sh](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/bash/hello_types.sh) script, in combination with [hello_types.py](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/python/types.py) and [hello_types.c](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/C/hello_types.c), shows how we can write and read arrays from `Python`, `C`, and inspect them with `bash`. 
 
 ### Exercise
 
-1) Understand the content of the files `types.{sh,py,c}`.
+1) Understand the content of the files `hello_types.{sh,py,c}`.
 
 2) Prepare one `bash` script, one `C` program, and one `Python` script with the following functionalities: The `bash` script should run the entire exercise without additional user input. The workflow is the following:
 
@@ -41,4 +41,4 @@ The [types.sh](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc
 3. Use `od` to print the array content.
 4. Read the two arrays with python and plot them using `matplotlib`, save the plot to a `png` image.
  
- **HINT**. Most of the functions and commands can be found in `types.{sh,py,c}`, except for `matplotlib` (use Google or your favorite search engine).
+ **HINT**. Most of the functions and commands can be found in `hello_types.{sh,py,c}`, except for `matplotlib` (use Google or your favorite search engine).
