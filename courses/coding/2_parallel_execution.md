@@ -22,7 +22,7 @@ Here is a table summarizing the key differences between the different types of p
 | Supercomputing | Large-scale problems | Distributed computing, parallel processing | Cray XC40, IBM BlueGene/Q |
 
 
-## OpenMp
+## OpenMP
 
 OpenMP is an application programming interface (API) that provides a set of compiler directives and library routines for parallelizing programs written in C, C++, and Fortran. OpenMP is a high-level programming model that allows programmers to explicitly specify which parts of their code should be executed in parallel and how the parallel tasks should be distributed among the available threads or processors.
 
