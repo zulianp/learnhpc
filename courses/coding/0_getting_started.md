@@ -10,6 +10,7 @@ We will use mainly five technologies during this course
 
 All the tutorials will make use of the `console` / `terminal` command line application available in your system.
 
+
 ## Why this combination of technologies
 
 **C programming** is advantageous due to its efficiency, portability across different platforms, scalability for both small and large projects, widespread usage with extensive libraries, and the ability to directly access hardware, making it essential for high-performance code development.
@@ -26,7 +27,7 @@ All the tutorials will make use of the `console` / `terminal` command line appli
 
 Before starting make sure you have the following installed in your system:
 
-- A development toolkit (e.g., X-Code command line tools on MacOS, Visual Studio on Windows, ...)
+- A development toolkit (e.g., XCode command line tools on MacOS, Visual Studio on Windows, ...)
 - A `C/C++` compiler (e.g., gcc, clang, or vsc)
 - The `Python 3` interpreter
 - Git
@@ -57,6 +58,9 @@ For instance
 
 - [Homebrew](https://brew.sh/) or [MacPorts](https://www.macports.org/) on MacOS
 - [Pacman](https://wiki.archlinux.org/title/pacman), [Apt](https://linux.die.net/man/8/apt-get), etc.. on Linux platforms
+
+NOTE: you can use `which cc`, `which git`, `which python3` in your command line to check if the tools are available and where are installed.
+
 
 ## Installation of `Python` dependencies and virtual environment
 

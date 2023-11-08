@@ -20,8 +20,8 @@ hello.py
 echo "--------------------"
 
 # Run the types example script
-echo "Running `(which types.py)`"
-types.py
+echo "Running `(which hello_types.py)`"
+hello_types.py
 
 echo "--------------------"
 

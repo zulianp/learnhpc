@@ -28,7 +28,7 @@ In the folder `learnhpc/courses/coding` we can find the example codes related to
 Let us open our console and lets go to `learnhpc/courses/coding/bash`.
 Run the example script `./types.sh`. 
 
-The [types.sh](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/bash/types.sh) script, in combination with [types.py](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/python/types.py) and [types.c](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/C/types.c), shows how we can write and read arrays from `Python`, `C`, and inspect them with `bash`. 
+The [types.sh](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/bash/types.sh) script, in combination with [hello_types.py](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/python/types.py) and [types.c](https://github.com/zulianp/learnhpc/blob/30ab059e683b466d48e6acfc8cdde00e16a37932/courses/coding/C/types.c), shows how we can write and read arrays from `Python`, `C`, and inspect them with `bash`. 
 
 ### Exercise
 
