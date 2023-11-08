@@ -13,3 +13,9 @@
     - title: Introduction to parallel computing for machine learning 
       url: /courses/intro
 
+- title: Extras
+  url: /courses/
+  sublinks:
+    - title: Basic Unix concepts
+      url: /courses/os/0_unix
+
