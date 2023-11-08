@@ -90,6 +90,7 @@ If everything went smoothly we can start running python scripts. First we start 
 ```bash
  source venv/bin/activate 	
 ```
+from the ` learnhpc/courses/coding/python` folder.
 
 We run our script and check if we see library and version number
 
