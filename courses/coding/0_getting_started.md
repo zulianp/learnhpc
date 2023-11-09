@@ -88,14 +88,13 @@ You can run this script by going to the `learnhpc/courses/coding/python` folder 
 
 As you can see it will run a bunch of commands and then return. 
 
-If everything went smoothly we can start running python scripts. First we start our venv
+If everything went smoothly we can start running python scripts. First, from the `learnhpc/courses/coding/python` folder we activate our venv
 
 ```bash
  source venv/bin/activate 	
 ```
-from the ` learnhpc/courses/coding/python` folder.
 
-We run our script and check if we see library and version number
+then, we run our script and check if we see library and version number
 
 ```bash
 python3 hello.py
