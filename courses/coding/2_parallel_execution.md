@@ -16,10 +16,10 @@ Here is a table summarizing the key differences between the different types of p
 
 | Type of parallelism | Focus | Techniques | Examples |
 |---|---|---|---|
-| ILP | Instructions | Pipelining, branch prediction, speculative execution | Pentium 4 processor |
-| TLP | Threads | Multithreading | Hyper-threading, multicore processors | Intel Core i7 processor |
-| DLP | Data | SIMD, vectorization | Intel SSE, AVX | NVIDIA CUDA |
-| Supercomputing | Large-scale problems | Distributed computing, parallel processing | Cray XC40, IBM BlueGene/Q |
+| ILP | Instructions | Pipelining, branch prediction, speculative execution | Your laptop's CPU |
+| TLP | Threads | Multithreading | Hyper-threading, multicore processors |
+| DLP | Data | SIMD, vectorization | Intel SSE, AVX |
+| Supercomputing | Large-scale problems | Distributed computing, parallel processing | CSCS Piz Daint |
 
 
 ## OpenMP
@@ -32,23 +32,16 @@ OpenMP is limited to user-directed parallelization. This means that the programm
 
 OpenMP is designed for shared-memory parallel computers. This means that all of the threads in a parallel region must have access to the same shared memory space. OpenMP does not support distributed-memory parallel computers.
 
-OpenMP is a fork-join programming model. This means that a single thread creates a team of threads to execute a parallel region, and then waits for all of the threads to finish before continuing. OpenMP does not support other programming models, such as data parallelism or task parallelism.
+OpenMP is a fork-join programming model. This means that a single thread creates a team of threads to execute a parallel region, and then waits for all of the threads to finish before continuing.
 
 OpenMP provides a number of directives for controlling the behavior of parallel regions, including:
 
 - `#pragma omp parallel`: This directive marks the beginning of a parallel region.
 - `#pragma omp for`: This directive parallelizes a for loop.
 - `#pragma omp update`: This directive updates shared memory locations in a parallel region.
-- `#pragma omp sections`: This directive divides a parallel region into a number of sections, each of which is executed by a different thread.
-- `#pragma omp critical`: This directive protects a critical section of code from being executed by multiple threads simultaneously.
-- `#pragma omp barrier`: This directive creates a barrier that all threads in a parallel region must wait for before continuing.
 
-OpenMP also provides a number of library routines for performing tasks such as:
+OpenMP also provides a number of library routines which we do not cover here.
 
-Creating and destroying teams of threads
-Setting the number of threads in a team
-Getting the current thread ID
-Synchronizing threads
 
 ### Installing and first usage of OpenMP
 
@@ -61,7 +54,7 @@ First define the environment variable `OPENMP_DIR` to the `OpenMP` install locat
 cc -Xpreprocessor -fopenmp -I$OPENMP_DIR/include -L$OPENMP_DIR/lib -lomp hello_openmp.c -o hello_openmp.exe
 ```
 
-Let us run the executable with 8 threads. If your CPU has less or more cores change the number of threads accordingly.
+Let us run the executable with 8 threads. If our CPU has less or more cores, then we change the number of threads accordingly.
 
 ```bash
 OMP_NUM_THREADS=8 OMP_PROC_BIND=true ./hello_openmp.exe
@@ -71,7 +64,7 @@ We should see numbers from 0 to 7 printed out of order to the terminal.
 
 ## MPI
 
-Message Passing Interface (MPI) is a standardized, open-source communication library that enables efficient message passing between processors on a parallel computer or between distributed computers. MPI is used by scientists, engineers, and researchers in various fields to develop and run parallel and distributed applications.
+Message Passing Interface (MPI) is a standardized, open-source communication API that enables efficient message passing between processors on a parallel computer or between distributed computers. MPI is used by scientists, engineers, and researchers in various fields to develop and run parallel and distributed applications.
 
 ### Scope of MPI
 
@@ -79,7 +72,7 @@ MPI provides a set of functions for communication between processes. These funct
 
 MPI is a portable library that can be used on a wide variety of parallel and distributed computing systems. It is also relatively easy to learn and use, making it a popular choice for parallel computing applications.
 
-### Installing and first usage of OpenMP
+### Installing and first usage of MPI
 
 Install `MPI` using your favorite package manager.
 
