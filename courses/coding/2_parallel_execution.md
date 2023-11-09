@@ -28,7 +28,7 @@ OpenMP is an application programming interface (API) that provides a set of comp
 
 ### Scope of OpenMP
 
-OpenMP is limited to user-directed parallelization. This means that the programmer must explicitly specify which parts of their code should be executed in parallel. The compiler and runtime system will not automatically parallelize any code that is not explicitly marked as parallel.
+OpenMP is limited to user-directed parallelization. This means that the programmer must explicitly specify which parts of their code should be executed in parallel. Then compiler and runtime system will not automatically parallelize any code that is not explicitly marked as parallel.
 
 OpenMP is designed for shared-memory parallel computers. This means that all of the threads in a parallel region must have access to the same shared memory space. OpenMP does not support distributed-memory parallel computers.
 
