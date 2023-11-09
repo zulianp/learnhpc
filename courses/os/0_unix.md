@@ -1,4 +1,4 @@
-# The Unix system
+# Unix system basics
 
 We will be using the console/terminal during this course. In this module we see some pointers to most basic knowledge.
 
