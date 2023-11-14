@@ -24,7 +24,7 @@ def hello_type(dtype):
 
 	norm_diff = np.sum(np.abs(diff))
 	ok = norm_diff == 0
-	# and print it the the command line if the check fails
+	# and print it to the command line if the check fails
 	# It is a good idea to always check our assumptions about
 	# a piece of code.
 	if not ok:
