@@ -41,4 +41,7 @@ The [hello_types.sh](https://github.com/zulianp/learnhpc/blob/24e94d6228e1d51590
 3. Use `od` to print the array content.
 4. Read the two arrays with python and plot them using `matplotlib`, save the plot to a `png` image.
  
- **HINT**. Most of the functions and commands can be found in `hello_types.{sh,py,c}`, except for `matplotlib` (use Google or your favorite search engine).
+ **HINTS** 
+
+- Most of the functions and commands can be found in `hello_types.{sh,py,c}`, except for `matplotlib` (use Google or your favorite search engine).
+- Use `chmod` to change permissions of script files `man chmod` for details.
