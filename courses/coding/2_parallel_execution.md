@@ -10,8 +10,6 @@ In this module we cover the basic concepts of parallelism and run our first and 
 
 **Data-level parallelism (DLP)** is a form of parallelism that is achieved by operating on multiple data elements in parallel. DLP is often used in conjunction with other forms of parallelism, such as TLP, to improve the performance of applications that are data-intensive.
 
-**Supercomputing** is the use of high-performance computers to solve problems that are too large or complex for ordinary computers. Supercomputers are typically used by scientists, engineers, and researchers to solve problems in fields such as weather forecasting, climate modeling, and molecular biology.
-
 Here is a table summarizing the key differences between the different types of parallelism:
 
 | Type of parallelism | Focus | Techniques | Examples |
@@ -19,7 +17,9 @@ Here is a table summarizing the key differences between the different types of p
 | ILP | Instructions | Pipelining, branch prediction, speculative execution | Your laptop's CPU |
 | TLP | Threads | Multithreading | Hyper-threading, multicore processors |
 | DLP | Data | SIMD, vectorization | Intel SSE, AVX |
-| Supercomputing | Large-scale problems | Distributed computing, parallel processing | CSCS Piz Daint |
+
+
+**Supercomputing** is the use of high-performance computers to solve problems that are too large or complex for ordinary computers. Supercomputers are typically used by scientists, engineers, and researchers to solve problems in fields such as weather forecasting, climate modeling, and molecular biology.
 
 
 ## OpenMP
