@@ -88,9 +88,9 @@ echo "C++ std lib accumulate"
 cat stdcpp.txt 		| grep seconds | awk '{print $1}' | tee e1.txt
 echo "C vanilla" 
 cat C_vanilla.txt 	| grep seconds | awk '{print $1}' | tee e2.txt
-echo "C DLP aware"
+echo "C DLP"
 cat C_DLP.txt 	| grep seconds | awk '{print $1}' | tee e3.txt
-echo "C ILP/DLP aware"
+echo "C ILP/DLP"
 cat C_ILP_DLP.txt 	| grep seconds | awk '{print $1}' | tee e4.txt
 
 paste e1.txt e2.txt e3.txt e4.txt > timings.txt
@@ -103,7 +103,7 @@ echo "C++ std lib accumulate"
 cat stdcpp.txt | grep result | tr 'result=' ' '
 echo "C vanilla" 
 cat C_vanilla.txt | grep result | tr 'result=' ' '
-echo "C DLP aware"
+echo "C DLP"
 cat C_DLP.txt | grep result | tr 'result=' ' '
-echo "C ILP/DLP aware"
+echo "C ILP/DLP"
 cat C_ILP_DLP.txt | grep result | tr 'result=' ' '
