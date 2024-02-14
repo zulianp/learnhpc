@@ -1,24 +1,53 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
+
+static void *read_array(const char *path, const size_t element_size,
+                        const size_t n_elements) {
+
+  // Allocate memory
+  void *ptr = malloc(n_elements * element_size);
+
+  // Extra: For write use "wb" instead
+  FILE *f = fopen(path, "rb");
+  if (!f) {
+    // File not found
+    fprintf(stderr, "Could not open file: %s\n", path);
+
+    // Not a good practice, but we leave it here for brevity
+    exit(EXIT_FAILURE);
+  }
+
+  // Extra: For write use fwrite instead
+  size_t n_elements_read = fread(ptr, element_size, n_elements, f);
+
+  fclose(f);
+
+  if (n_elements_read != n_elements) {
+    // We make sure that we are reading the correct file by checking sizes
+    fprintf(stderr, "File %s has wrong length. %lu != %lu\n", path, n_elements,
+            n_elements_read);
+
+    // Not a good practice, but we leave it here for brevity
+    exit(EXIT_FAILURE);
+  }
+
+  return ptr;
+}
 
 int main(int argc, char *argv[]) {
-  int n = atoi(argv[1]);
-  double alpha = atof(argv[2]);
+  ptrdiff_t n = atol(argv[1]);
+  double *arr = read_array(argv[2], sizeof(double), n);
 
-  double *arr = (double *)malloc(n * sizeof(double));
-
-  for (int i = 0; i < n; i++) {
-    arr[i] = alpha;
-  }
 
   // BEGIN: Accumulator
 
   double a = 0;
 
-  for (int k = 0; k < 40; k++) {
+  for (ptrdiff_t k = 0; k < 4000; k++) {
 
     double acc = 0;
-    for (int i = 0; i < n; i++) {
+    for (ptrdiff_t i = 0; i < n; i++) {
       acc += arr[i];
     }
     a += acc;
@@ -26,7 +55,7 @@ int main(int argc, char *argv[]) {
 
   // END: Accumulator
 
-  printf("%g\n", a);
+  printf("result=%g\n", a);
   free(arr);
   return 0;
 }
