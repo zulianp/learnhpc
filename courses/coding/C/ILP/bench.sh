@@ -13,7 +13,7 @@ np_real="float64"
 
 if [[ "arm64" == "$march" ]]
 then
-	CFLAGS="-Ofast -DNDEBUG $OPTS"
+	CFLAGS="-Ofast -DNDEBUG -march=armv8-a+simd  $OPTS"
 	# CFLAGS="-march=armv8-a+simd -Ofast -ffast-math -DNDEBUG $OPTS"
 	# -march=armv8-a+simd -ftree-vectorize -ffast-math
 	# -march=armv8-a+sve

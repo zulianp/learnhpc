@@ -40,12 +40,12 @@ void handle_align_err() {
   exit(EXIT_FAILURE);
 }
 
-real_t accumulate(const real_t *arr, const ptrdiff_t n) {
-  if (((uintptr_t)arr % ALIGN_SIZE) != 0) {
+real_t accumulate(const real_t *x, const ptrdiff_t n) {
+  if (((uintptr_t)x % ALIGN_SIZE) != 0) {
     handle_align_err();
   }
 
-  __builtin_assume_aligned(arr, ALIGN_SIZE);
+  const real_t *arr = __builtin_assume_aligned(x, ALIGN_SIZE);
   vreal_t acc[ILP_SIZE];
   for (int k = 0; k < ILP_SIZE; k++) {
     vreal_t v = {0};
@@ -59,7 +59,7 @@ real_t accumulate(const real_t *arr, const ptrdiff_t n) {
 
 #pragma unroll(ILP_SIZE)
     for (int k = 0; k < ILP_SIZE; k += 1) {
-#if 0
+#ifndef __AVX2__
       vreal_t *v = (vreal_t *)&(buff[k * DLP_SIZE]);
       acc[k] += *v;
 #else
