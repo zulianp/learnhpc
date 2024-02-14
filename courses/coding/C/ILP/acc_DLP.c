@@ -5,8 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define DLP_SIZE 4
-typedef double __attribute__((vector_size(sizeof(double) * DLP_SIZE))) vreal_t;
+#include "ilp_bench.h"
 
 static void *read_array(const char *path, const size_t element_size,
                         const size_t n_elements) {
@@ -47,22 +46,44 @@ void handle_align_err() {
   exit(EXIT_FAILURE);
 }
 
-double accumulate(const double *arr, const ptrdiff_t n) {
-  if (((uintptr_t)arr % sizeof(double) * DLP_SIZE) != 0) {
+// #ifdef __ARM_FEATURE_SVE
+
+// real_t accumulate(const real_t *arr, const int64_t n) {
+//   svbool_t predicate;
+//   svfloat64_t v;
+//   svfloat64_t acc = svdup_f64_m(0.0);
+
+//   uint64_t vector_length = svlen_f64(acc);
+//   for (int64_t i = 0; i < n; i += vector_length) {
+//     predicate = svwhilelt_b64(i, n);
+//     v = svld1_f64(predicate, &arr[i]); 
+//     acc = svadd_f64_z(predicate, acc, v);
+//   }
+//   return svaddv_f64(svptrue_b64(), acc);
+//   return rand();
+// }
+
+// #else
+
+#ifdef __ARM_NEON
+
+real_t accumulate(const real_t *arr, const ptrdiff_t n) {
+  if (((uintptr_t)arr % sizeof(real_t) * DLP_SIZE) != 0) {
     handle_align_err();
   }
 
-  vreal_t acc = {0, 0, 0, 0};
+  vreal_t acc = vmovq_n_real(0);
 
   ptrdiff_t packed_size = (n / (DLP_SIZE)) * (DLP_SIZE);
 
   for (ptrdiff_t i = 0; i < packed_size; i += DLP_SIZE) {
-    const double *buff = &arr[i];
-    vreal_t *v = (vreal_t *)buff;
-    acc += *v;
+    const real_t *buff = &arr[i];
+    vreal_t v = vld1q_real(buff);
+    acc = vaddq_real(v, acc);
   }
 
-  double a = 0;
+  real_t a = 0;
+
   for (int d = 0; d < DLP_SIZE; d++) {
     a += acc[d];
   }
@@ -74,13 +95,44 @@ double accumulate(const double *arr, const ptrdiff_t n) {
   return a;
 }
 
+#else
+
+real_t accumulate(const real_t *arr, const ptrdiff_t n) {
+  if (((uintptr_t)arr % sizeof(real_t) * DLP_SIZE) != 0) {
+    handle_align_err();
+  }
+
+  vreal_t acc = {0., 0., 0., 0.};
+
+  ptrdiff_t packed_size = (n / (DLP_SIZE)) * (DLP_SIZE);
+
+  for (ptrdiff_t i = 0; i < packed_size; i += DLP_SIZE) {
+    const real_t *buff = &arr[i];
+    vreal_t *v = (vreal_t *)buff;
+    acc += *v;
+  }
+
+  real_t a = 0;
+  for (int d = 0; d < DLP_SIZE; d++) {
+    a += acc[d];
+  }
+
+  for (ptrdiff_t i = packed_size; i < n; i++) {
+    a += arr[i];
+  }
+
+  return a;
+}
+
+#endif
+
 int main(int argc, char *argv[]) {
   ptrdiff_t n = atol(argv[1]);
-  double *arr = read_array(argv[2], sizeof(double), n);
+  real_t *arr = read_array(argv[2], sizeof(real_t), n);
 
   assert(arr);
 
-  double a = 0;
+  real_t a = 0;
 
   for (ptrdiff_t k = 0; k < 100; k++) {
     a += accumulate(arr, n);

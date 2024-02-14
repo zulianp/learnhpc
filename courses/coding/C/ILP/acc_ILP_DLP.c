@@ -4,9 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define DLP_SIZE 4
-typedef double __attribute__((vector_size(sizeof(double) * DLP_SIZE))) vreal_t;
-#define ILP_SIZE 2
+#include "ilp_bench.h"
 
 static void *read_array(const char *path, const size_t element_size,
                         const size_t n_elements) {
@@ -47,21 +45,21 @@ void handle_align_err() {
   exit(EXIT_FAILURE);
 }
 
-double accumulate(const double *arr, const ptrdiff_t n) {
-  if (((uintptr_t)arr % sizeof(double) * DLP_SIZE) != 0) {
+real_t accumulate(const real_t *arr, const ptrdiff_t n) {
+  if (((uintptr_t)arr % sizeof(real_t) * DLP_SIZE) != 0) {
     handle_align_err();
   }
 
   vreal_t acc[ILP_SIZE];
   for (int k = 0; k < ILP_SIZE; k++) {
-    vreal_t v = {0, 0, 0, 0};
+    vreal_t v = {0};
     acc[k] = v;
   }
 
   ptrdiff_t packed_size = (n / (ILP_SIZE * DLP_SIZE)) * (ILP_SIZE * DLP_SIZE);
 
   for (ptrdiff_t i = 0; i < packed_size; i += ILP_SIZE * DLP_SIZE) {
-    const double *buff = &arr[i];
+    const real_t *buff = &arr[i];
 
 #pragma unroll(ILP_SIZE)
     for (int k = 0; k < ILP_SIZE; k += 1) {
@@ -70,7 +68,7 @@ double accumulate(const double *arr, const ptrdiff_t n) {
     }
   }
 
-  double a = 0;
+  real_t a = 0;
   for (int k = 0; k < ILP_SIZE; k++) {
     for (int d = 0; d < DLP_SIZE; d++) {
       a += acc[k][d];
@@ -86,11 +84,11 @@ double accumulate(const double *arr, const ptrdiff_t n) {
 
 int main(int argc, char *argv[]) {
   ptrdiff_t n = atol(argv[1]);
-  double *arr = read_array(argv[2], sizeof(double), n);
+  real_t *arr = read_array(argv[2], sizeof(real_t), n);
 
   assert(arr);
 
-  double a = 0;
+  real_t a = 0;
 
   for (ptrdiff_t k = 0; k < 100; k++) {
     a += accumulate(arr, n);

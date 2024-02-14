@@ -1,5 +1,24 @@
 #!/usr/bin/env bash
 
+march=`arch`
+
+# OPTS="-DDOUBLE_PRECISION"
+# np_real="float64"
+
+
+OPTS="-DSINGLE_PRECISION"
+np_real="float32"
+
+if [[ "arm64" -eq $march ]]
+then
+	CFLAGS="-Ofast -DNDEBUG $OPTS"
+	# CFLAGS="-march=armv8-a+simd -Ofast -ffast-math -DNDEBUG $OPTS"
+	# -march=armv8-a+simd -ftree-vectorize -ffast-math
+	# -march=armv8-a+sve
+else
+	CFLAGS="-march=core-avx2 -Ofast -DNDEBUG $OPTS"
+fi
+
 
 set -e
 # set -x
@@ -9,17 +28,27 @@ rm -f *.exe
 function measure_time()
 {
 	echo "Running" $@
-	ts=$(date +%s%N)
+
+	sys=`uname -s`
+	data_cmd=date
+	if [[ "Darwin" -eq $sys ]]
+	then
+		# brew install coreutils
+		data_cmd=gdate
+	fi
+
+	ts=$($data_cmd +%s%N)
 	$@
-	echo $((($(date +%s%N) - $ts)/1000)) "microseconds"
+	echo $((($($data_cmd +%s%N) - $ts)/1000)) "microseconds"
 }
 
-cc  -march=core-avx2 -Ofast -DNDEBUG acc_Vanilla.c -o acc_Vanilla.exe
-cc  -march=core-avx2 -Ofast -DNDEBUG acc_DLP.c -o acc_DLP.exe
-cc  -march=core-avx2 -Ofast -DNDEBUG acc_ILP_DLP.c -o acc_ILP_DLP.exe
-c++ -march=core-avx2 -Ofast -DNDEBUG -std=c++17 -fno-exceptions -fno-rtti acc_std.cpp -o acc_std.exe
+cc  $CFLAGS acc_Vanilla.c -o acc_Vanilla.exe
+cc  $CFLAGS acc_DLP.c -o acc_DLP.exe
+cc  $CFLAGS acc_ILP_DLP.c -o acc_ILP_DLP.exe
+c++ $CFLAGS -std=c++17 -fno-exceptions -fno-rtti acc_std.cpp -o acc_std.exe
 
-a=(10 100 10000 1000000 10000000 100000000 1000000000)
+# a=(10 100 10000 1000000 10000000 100000000 1000000000)
+a=(10 100 10000 1000000 10000000)
 
 echo "std-c++" > stdcpp.txt
 echo "C vanilla" > C_vanilla.txt
@@ -35,18 +64,19 @@ else
 
 for n in ${a[@]}
 do
-	python3 -c 'import numpy as np; np.linspace(0, 0.000001, '$n').astype(np.float64).tofile("dataset/data_'$n'.float64.raw")'
+	python3 -c 'import numpy as np; np.linspace(0, 0.0000001, '$n').astype(np.float64).tofile("dataset/data_'$n'.float64.raw")'
+	python3 -c 'import numpy as np; np.linspace(0, 0.0000001, '$n').astype(np.float32).tofile("dataset/data_'$n'.float32.raw")'
 done
 fi
 
 for n in ${a[@]}
 do
-	measure_time ./acc_Vanilla.exe $n "dataset/data_"$n".float64.raw" >> C_vanilla.txt
-	measure_time ./acc_ILP_DLP.exe $n "dataset/data_"$n".float64.raw" >> C_ILP_DLP.txt
-	measure_time ./acc_DLP.exe $n "dataset/data_"$n".float64.raw" >> C_DLP.txt
-	measure_time ./acc_std.exe 	   $n "dataset/data_"$n".float64.raw" >> stdcpp.txt
+	echo "Running size $n"
+	measure_time ./acc_Vanilla.exe $n "dataset/data_"$n"."$np_real".raw" >> C_vanilla.txt
+	measure_time ./acc_ILP_DLP.exe $n "dataset/data_"$n"."$np_real".raw" >> C_ILP_DLP.txt
+	measure_time ./acc_DLP.exe $n "dataset/data_"$n"."$np_real".raw" >> C_DLP.txt
+	measure_time ./acc_std.exe 	   $n "dataset/data_"$n"."$np_real".raw" >> stdcpp.txt
 done
-
 
 echo "-----------------------"
 echo "timings (microseconds)"

@@ -7,10 +7,12 @@
 #include <stddef.h>
 #include <vector>
 
+#include "ilp_bench.h"
+
 int main(int argc, char *argv[]) {
   ptrdiff_t n = atol(argv[1]);
 
-  std::vector<double> arr(n, 1);
+  std::vector<real_t> arr(n, 1);
 
   std::ifstream is(argv[2]);
   if (!is.good()) {
@@ -18,14 +20,14 @@ int main(int argc, char *argv[]) {
     return EXIT_FAILURE;
   }
 
-  is.read((char *)arr.data(), arr.size() * sizeof(double));
+  is.read((char *)arr.data(), arr.size() * sizeof(real_t));
   is.close();
 
   // BEGIN: Accumulator
-  double a = 0;
-
+  real_t a = 0;
+  real_t init = 0;
   for (int k = 0; k < 100; k++) {
-    a += std::accumulate(arr.begin(), arr.end(), 0.);
+    a += std::accumulate(arr.begin(), arr.end(), init);
   }
   // END: Accumulator
 
