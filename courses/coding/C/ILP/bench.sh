@@ -111,3 +111,7 @@ echo "C DLP"
 cat C_DLP.txt | grep result | tr 'result=' ' '
 echo "C ILP/DLP"
 cat C_ILP_DLP.txt | grep result | tr 'result=' ' '
+
+
+./make_plot.py
+
