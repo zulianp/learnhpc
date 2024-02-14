@@ -102,7 +102,8 @@ real_t accumulate(const real_t *x, const ptrdiff_t n) {
     handle_align_err();
   }
 
-  const real_t *arr = __builtin_assume_aligned(x, ALIGN_SIZE);
+  // const real_t *arr = __builtin_assume_aligned(x, ALIGN_SIZE);
+   const real_t *arr = x;
 
   vreal_t acc = {0., 0., 0., 0.};
 

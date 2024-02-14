@@ -45,7 +45,10 @@ real_t accumulate(const real_t *x, const ptrdiff_t n) {
     handle_align_err();
   }
 
-  const real_t *arr = __builtin_assume_aligned(x, ALIGN_SIZE);
+  // Why is this killing performance?
+  // const real_t *arr = __builtin_assume_aligned(x, ALIGN_SIZE);
+  const real_t *arr = x;
+
   vreal_t acc[ILP_SIZE];
   for (int k = 0; k < ILP_SIZE; k++) {
     vreal_t v = {0};
@@ -57,9 +60,8 @@ real_t accumulate(const real_t *x, const ptrdiff_t n) {
   for (ptrdiff_t i = 0; i < packed_size; i += ILP_SIZE * DLP_SIZE) {
     const real_t *buff = &arr[i];
 
-#pragma unroll(ILP_SIZE)
     for (int k = 0; k < ILP_SIZE; k += 1) {
-#ifndef __AVX2__
+#if 0
       vreal_t *v = (vreal_t *)&(buff[k * DLP_SIZE]);
       acc[k] += *v;
 #else

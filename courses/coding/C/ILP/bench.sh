@@ -18,7 +18,8 @@ then
 	# -march=armv8-a+simd -ftree-vectorize -ffast-math
 	# -march=armv8-a+sve
 else
-	CFLAGS="-march=core-avx2 -Ofast -DNDEBUG $OPTS"
+	# CFLAGS="-march=core-avx2 -O2 -g -pg  -DNDEBUG -Wall -pedantic $OPTS"
+	CFLAGS="-march=core-avx2 -Ofast -DNDEBUG -Wall -pedantic $OPTS"
 fi
 
 
@@ -42,6 +43,8 @@ function measure_time()
 	ts=$($data_cmd +%s%N)
 	$@
 	echo $((($($data_cmd +%s%N) - $ts)/1000)) "microseconds"
+
+
 }
 
 cc  $CFLAGS acc_Vanilla.c -o acc_Vanilla.exe
@@ -76,6 +79,7 @@ do
 	echo "Running size $n"
 	measure_time ./acc_Vanilla.exe $n "dataset/data_"$n"."$np_real".raw" >> C_vanilla.txt
 	measure_time ./acc_ILP_DLP.exe $n "dataset/data_"$n"."$np_real".raw" >> C_ILP_DLP.txt
+	# gprof ./acc_ILP_DLP.exe gmon.out > "analysis_"$n".txt"
 	measure_time ./acc_DLP.exe 	   $n "dataset/data_"$n"."$np_real".raw" >> C_DLP.txt
 	measure_time ./acc_std.exe 	   $n "dataset/data_"$n"."$np_real".raw" >> stdcpp.txt
 done
