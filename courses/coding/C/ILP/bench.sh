@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
 march=`arch`
-# OPTS="-DDOUBLE_PRECISION"
-# np_real="float64"
 
 
-OPTS="-DSINGLE_PRECISION"
-np_real="float32"
+
+OPTS="-DDOUBLE_PRECISION"
+np_real="float64"
+
+# Comment out to use double precision
+# OPTS="-DSINGLE_PRECISION"
+# np_real="float32"
 
 if [[ "arm64" == "$march" ]]
 then
@@ -46,8 +49,8 @@ cc  $CFLAGS acc_DLP.c -o acc_DLP.exe
 cc  $CFLAGS acc_ILP_DLP.c -o acc_ILP_DLP.exe
 c++ $CFLAGS -std=c++17 -fno-exceptions -fno-rtti acc_std.cpp -o acc_std.exe
 
-# a=(10 100 10000 1000000 10000000 100000000 1000000000)
-a=(10 100 10000 1000000 10000000)
+a=(10 100 10000 1000000 10000000 100000000 1000000000)
+# a=(10 100 10000 1000000 10000000)
 
 echo "std-c++" > stdcpp.txt
 echo "C vanilla" > C_vanilla.txt
@@ -73,7 +76,7 @@ do
 	echo "Running size $n"
 	measure_time ./acc_Vanilla.exe $n "dataset/data_"$n"."$np_real".raw" >> C_vanilla.txt
 	measure_time ./acc_ILP_DLP.exe $n "dataset/data_"$n"."$np_real".raw" >> C_ILP_DLP.txt
-	measure_time ./acc_DLP.exe $n "dataset/data_"$n"."$np_real".raw" >> C_DLP.txt
+	measure_time ./acc_DLP.exe 	   $n "dataset/data_"$n"."$np_real".raw" >> C_DLP.txt
 	measure_time ./acc_std.exe 	   $n "dataset/data_"$n"."$np_real".raw" >> stdcpp.txt
 done
 

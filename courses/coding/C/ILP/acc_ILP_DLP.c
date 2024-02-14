@@ -1,8 +1,3 @@
-#include <assert.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 #include "ilp_bench.h"
 
@@ -10,8 +5,8 @@ static void *read_array(const char *path, const size_t element_size,
                         const size_t n_elements) {
 
   // Allocate memory (ALIGNED)
-  ptrdiff_t alloc_size = ((n_elements / DLP_SIZE) + 1) * DLP_SIZE;
-  void *ptr = aligned_alloc(DLP_SIZE * element_size, alloc_size * element_size);
+  ptrdiff_t alloc_size = ((n_elements / ALIGN_SIZE) + 1) * ALIGN_SIZE;
+  void *ptr = aligned_alloc(ALIGN_SIZE, alloc_size * element_size);
 
   // Extra: For write use "wb" instead
   FILE *f = fopen(path, "rb");
@@ -46,10 +41,11 @@ void handle_align_err() {
 }
 
 real_t accumulate(const real_t *arr, const ptrdiff_t n) {
-  if (((uintptr_t)arr % sizeof(real_t) * DLP_SIZE) != 0) {
+  if (((uintptr_t)arr % ALIGN_SIZE) != 0) {
     handle_align_err();
   }
 
+  __builtin_assume_aligned(arr, ALIGN_SIZE);
   vreal_t acc[ILP_SIZE];
   for (int k = 0; k < ILP_SIZE; k++) {
     vreal_t v = {0};
@@ -63,8 +59,14 @@ real_t accumulate(const real_t *arr, const ptrdiff_t n) {
 
 #pragma unroll(ILP_SIZE)
     for (int k = 0; k < ILP_SIZE; k += 1) {
+#if 0
       vreal_t *v = (vreal_t *)&(buff[k * DLP_SIZE]);
       acc[k] += *v;
+#else
+      vreal_t v;
+      vector_copy(&buff[k * DLP_SIZE], &v);
+      acc[k] += v;
+#endif
     }
   }
 

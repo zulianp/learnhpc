@@ -11,8 +11,8 @@ static void *read_array(const char *path, const size_t element_size,
                         const size_t n_elements) {
 
   // Allocate memory (ALIGNED)
-  ptrdiff_t alloc_size = ((n_elements / DLP_SIZE) + 1) * DLP_SIZE;
-  void *ptr = aligned_alloc(DLP_SIZE * element_size, alloc_size * element_size);
+  ptrdiff_t alloc_size = ((n_elements / ALIGN_SIZE) + 1) * ALIGN_SIZE;
+  void *ptr = aligned_alloc(ALIGN_SIZE, alloc_size * element_size);
 
   // Extra: For write use "wb" instead
   FILE *f = fopen(path, "rb");
@@ -56,7 +56,7 @@ void handle_align_err() {
 //   uint64_t vector_length = svlen_f64(acc);
 //   for (int64_t i = 0; i < n; i += vector_length) {
 //     predicate = svwhilelt_b64(i, n);
-//     v = svld1_f64(predicate, &arr[i]); 
+//     v = svld1_f64(predicate, &arr[i]);
 //     acc = svadd_f64_z(predicate, acc, v);
 //   }
 //   return svaddv_f64(svptrue_b64(), acc);
@@ -68,7 +68,7 @@ void handle_align_err() {
 #ifdef __ARM_NEON
 
 real_t accumulate(const real_t *arr, const ptrdiff_t n) {
-  if (((uintptr_t)arr % sizeof(real_t) * DLP_SIZE) != 0) {
+  if (((uintptr_t)arr % ALIGN_SIZE) != 0) {
     handle_align_err();
   }
 
@@ -98,9 +98,11 @@ real_t accumulate(const real_t *arr, const ptrdiff_t n) {
 #else
 
 real_t accumulate(const real_t *arr, const ptrdiff_t n) {
-  if (((uintptr_t)arr % sizeof(real_t) * DLP_SIZE) != 0) {
+  if (((uintptr_t)arr % ALIGN_SIZE) != 0) {
     handle_align_err();
   }
+
+  __builtin_assume_aligned(arr, ALIGN_SIZE);
 
   vreal_t acc = {0., 0., 0., 0.};
 

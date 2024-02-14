@@ -1,6 +1,18 @@
 #ifndef ILP_BENCH_H
 
+#include <assert.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+
+#ifdef __AVX2__
+#include <immintrin.h>
+#endif
+
 #define ILP_SIZE 2
+#define ALIGN_SIZE 32
 
 #ifdef DOUBLE_PRECISION
 
@@ -20,6 +32,17 @@ typedef float64x2_t vreal_t;
 typedef double __attribute__((vector_size(sizeof(double) * DLP_SIZE))) vreal_t;
 #endif
 
+
+inline static void vector_copy(const real_t *const a, vreal_t *const v)
+{
+#ifdef __AVX2__
+    *v = _mm256_load_pd(a);
+#else
+    *v = __builtin_ia32_loadupd256(a);
+#endif
+}
+
+
 #else // DOUBLE_PRECISION
 
 typedef float real_t;
@@ -36,9 +59,17 @@ typedef float32x4_t vreal_t;
 
 #define DLP_SIZE 8
 typedef float __attribute__((vector_size(sizeof(float) * DLP_SIZE))) vreal_t;
+
+inline static void vector_copy(const real_t *const a, vreal_t *const v)
+{
+#ifdef __AVX2__
+    *v = _mm256_load_ps(a);
+#else
+    *v = __builtin_ia32_loadups256(a);
+#endif
+}
+
 #endif
 
-
- 
 #endif //DOUBLE_PRECISION
 #endif //ILP_BENCH_H
