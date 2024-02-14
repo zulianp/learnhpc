@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 march=`arch`
-
 # OPTS="-DDOUBLE_PRECISION"
 # np_real="float64"
 
@@ -9,7 +8,7 @@ march=`arch`
 OPTS="-DSINGLE_PRECISION"
 np_real="float32"
 
-if [[ "arm64" -eq $march ]]
+if [[ "arm64" == "$march" ]]
 then
 	CFLAGS="-Ofast -DNDEBUG $OPTS"
 	# CFLAGS="-march=armv8-a+simd -Ofast -ffast-math -DNDEBUG $OPTS"
@@ -31,7 +30,7 @@ function measure_time()
 
 	sys=`uname -s`
 	data_cmd=date
-	if [[ "Darwin" -eq $sys ]]
+	if [[ "Darwin" == "$sys" ]]
 	then
 		# brew install coreutils
 		data_cmd=gdate
