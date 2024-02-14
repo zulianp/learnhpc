@@ -1,6 +1,6 @@
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stddef.h>
 
 static void *read_array(const char *path, const size_t element_size,
                         const size_t n_elements) {
@@ -39,12 +39,11 @@ int main(int argc, char *argv[]) {
   ptrdiff_t n = atol(argv[1]);
   double *arr = read_array(argv[2], sizeof(double), n);
 
-
   // BEGIN: Accumulator
 
   double a = 0;
 
-  for (ptrdiff_t k = 0; k < 4000; k++) {
+  for (ptrdiff_t k = 0; k < 100; k++) {
 
     double acc = 0;
     for (ptrdiff_t i = 0; i < n; i++) {

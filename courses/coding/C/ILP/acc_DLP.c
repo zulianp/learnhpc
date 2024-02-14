@@ -1,3 +1,4 @@
+
 #include <assert.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -6,7 +7,6 @@
 
 #define DLP_SIZE 4
 typedef double __attribute__((vector_size(sizeof(double) * DLP_SIZE))) vreal_t;
-#define ILP_SIZE 2
 
 static void *read_array(const char *path, const size_t element_size,
                         const size_t n_elements) {
@@ -52,29 +52,19 @@ double accumulate(const double *arr, const ptrdiff_t n) {
     handle_align_err();
   }
 
-  vreal_t acc[ILP_SIZE];
-  for (int k = 0; k < ILP_SIZE; k++) {
-    vreal_t v = {0, 0, 0, 0};
-    acc[k] = v;
-  }
+  vreal_t acc = {0, 0, 0, 0};
 
-  ptrdiff_t packed_size = (n / (ILP_SIZE * DLP_SIZE)) * (ILP_SIZE * DLP_SIZE);
+  ptrdiff_t packed_size = (n / (DLP_SIZE)) * (DLP_SIZE);
 
-  for (ptrdiff_t i = 0; i < packed_size; i += ILP_SIZE * DLP_SIZE) {
+  for (ptrdiff_t i = 0; i < packed_size; i += DLP_SIZE) {
     const double *buff = &arr[i];
-
-#pragma unroll(ILP_SIZE)
-    for (int k = 0; k < ILP_SIZE; k += 1) {
-      vreal_t *v = (vreal_t *)&(buff[k * DLP_SIZE]);
-      acc[k] += *v;
-    }
+    vreal_t *v = (vreal_t *)buff;
+    acc += *v;
   }
 
   double a = 0;
-  for (int k = 0; k < ILP_SIZE; k++) {
-    for (int d = 0; d < DLP_SIZE; d++) {
-      a += acc[k][d];
-    }
+  for (int d = 0; d < DLP_SIZE; d++) {
+    a += acc[d];
   }
 
   for (ptrdiff_t i = packed_size; i < n; i++) {
