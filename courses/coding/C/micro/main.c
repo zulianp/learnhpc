@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include <time.h>
 
+#ifndef compute_kernel
+#error "define compute_kernel"
+#endif
+
 static void *read_array(const char *path, const size_t element_size,
                         const size_t n_elements) {
 
@@ -56,7 +60,7 @@ int main(int argc, char *argv[]) {
 
   real_t a = 0;
   for (ptrdiff_t k = 0; k < repeat; k++) {
-    a += accumulate(arr, n);
+    a += compute_kernel(arr, n);
   }
 
   clock_t end = clock();

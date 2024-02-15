@@ -2,6 +2,7 @@
 
 march=`arch`
 
+compute_kernel=accumulate
 OPTS="-DDOUBLE_PRECISION"
 np_real="float64"
 
@@ -11,32 +12,45 @@ np_real="float64"
 
 if [[ "arm64" == "$march" ]]
 then
-	CFLAGS="-Ofast -DNDEBUG -march=armv8-a+simd  $OPTS"
-	# CFLAGS="-march=armv8-a+simd -Ofast -ffast-math -DNDEBUG $OPTS"
-	# -march=armv8-a+simd -ftree-vectorize -ffast-math
-	# -march=armv8-a+sve
+	CFLAGS="-I. -Ofast -DNDEBUG -march=armv8-a+simd -Dcompute_kernel=$compute_kernel  $OPTS"
 else
-	# CFLAGS="-march=core-avx2 -O2 -g -pg  -DNDEBUG -Wall -pedantic $OPTS"
-	CFLAGS="-march=core-avx2 -Ofast -DNDEBUG -Wall -pedantic $OPTS"
+	CFLAGS="-I. -march=core-avx2 -Ofast -DNDEBUG -Wall -pedantic -Dcompute_kernel=$compute_kernel $OPTS"
 fi
 
 set -e
-# set -x
 
-cc  $CFLAGS main.c acc_Vanilla.c -o PlainC
-cc  $CFLAGS main.c acc_DLP.c -o ExDLP
-cc  $CFLAGS main.c acc_ILP_DLP.c -o ExCombinedDLPILP
-cc  $CFLAGS main.c acc_Implicit_ILP_DLP.c -o ImCombinedILPDLP
-cc  $CFLAGS main.c acc_Implicit_ILP.c -o ImILP
+c_sources=`(ls accumulate/*.c)`
+cpp_sources=`(ls accumulate/*.cpp)`
 
-c++ $CFLAGS -std=c++17 -fno-exceptions -fno-rtti -c acc_std.cpp 
-cc  $CFLAGS main.c acc_std.o -o STLAccumulate
+rm bin/*
+rm obj/*
 
-executables=("./PlainC" "./ExCombinedDLPILP" "./ImCombinedILPDLP" "./ImILP" "./STLAccumulate") #"./ExDLP"
+mkdir -p bin
+mkdir -p obj
+mkdir -p figures
+
+for src in ${c_sources[@]}
+do
+	fullname=`basename $src`
+	name="${fullname%.*}"
+	echo $name
+	cc $CFLAGS main.c $src -o bin/$name
+done	
+
+for src in ${cpp_sources[@]}
+do
+	fullname=`basename $src`
+	name="${fullname%.*}"
+	echo $name
+	c++ $CFLAGS -std=c++17 -fno-exceptions -fno-rtti -c $src -o obj/"$name".o
+	cc  $CFLAGS main.c obj/"$name".o -o  bin/$name
+done	
+
+executables=`(ls bin)`
 
 # a=(10 100 10000 1000000 10000000 100000000 1000000000)
-a=(10 100 10000 1000000 10000000 100000000)
-# a=(10 100 10000 1000000)
+# a=(10 100 10000 1000000 10000000 100000000)
+a=(10 100 10000 1000000)
 
 repeat=100
 
@@ -60,7 +74,7 @@ do
 	echo "# Running size $n" >> log.txt
 	for e in ${executables[@]}
 	do
-		$e $n "dataset/data_"$n"."$np_real".raw" $repeat >> log.txt
+		./bin/$e $n "dataset/data_"$n"."$np_real".raw" $repeat >> log.txt
 	done
 done
 
@@ -84,10 +98,5 @@ do
 	echo "$name,$tp" | sed 's/.$//' >> TP.csv
 done
 
-echo "TTS"
-cat TTS.csv
-echo "TP"
-cat TP.csv
-
-./make_plot.py "Throughput [GB/s]" 	TP.csv 	TP.png
-./make_plot.py "TTS [s]" 			TTS.csv TTS.png
+./make_plot.py "Throughput [GB/s]" 	TP.csv 	figures/$"compute_kernel"_TP.png
+./make_plot.py "TTS [s]" 			TTS.csv figures/$"compute_kernel"_TTS.png
