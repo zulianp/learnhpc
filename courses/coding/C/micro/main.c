@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
   printf("Problem-size:\t%ld\n", n);
   printf("Repeat:\t\t%ld\n", repeat);
   printf("Throughput:\t%g [GB/s]\n", 1e-9 * (n * repeat)/time_spent);
-  printf("TTS:\t\t%g [s]\n", time_spent);
+  printf("TTS:\t\t%g [ms]\n", 1001*(time_spent / repeat));
   printf("Result:\t\t%g\n", a);
   printf("#----------------------\n");
   return 0;

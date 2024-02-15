@@ -9,7 +9,7 @@ a=(1000000 2000000 4000000 6000000 8000000 10000000)
 # a=(10 100 10000 1000000 10000000 100000000 1000000000)
 # a=(10 100 10000 1000000 10000000 100000000)
 # a=(10 100 10000 1000000)
-repeat=100
+repeat=20
 
 compute_kernel=accumulate
 OPTS="-DDOUBLE_PRECISION"
@@ -115,4 +115,4 @@ do
 done
 
 ./make_plot.py "Throughput [GB/s]" 	TP.csv 	figures/$"compute_kernel"_TP.pdf
-./make_plot.py "TTS [s]" 			TTS.csv figures/$"compute_kernel"_TTS.pdf
+./make_plot.py "TTS [ms]" 			TTS.csv figures/$"compute_kernel"_TTS.pdf
