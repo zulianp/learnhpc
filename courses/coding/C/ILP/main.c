@@ -1,5 +1,8 @@
 
 #include "ilp_bench.h"
+#include <stddef.h>
+#include <stdlib.h>
+#include <time.h>
 
 static void *read_array(const char *path, const size_t element_size,
                         const size_t n_elements) {
@@ -38,18 +41,36 @@ static void *read_array(const char *path, const size_t element_size,
 real_t accumulate(const real_t *x, const ptrdiff_t n);
 
 int main(int argc, char *argv[]) {
-  ptrdiff_t n = atol(argv[1]);
+  if(argc < 4) {
+    fprintf(stderr, "usage %s <n> <data.float64.raw> <repeat>\n", argv[0]);
+    return EXIT_FAILURE;
+  }
+
+  const ptrdiff_t n = atol(argv[1]);
   real_t *arr = (real_t *)read_array(argv[2], sizeof(real_t), n);
+  const ptrdiff_t repeat = atol(argv[3]);
 
   assert(arr);
 
-  real_t a = 0;
+  clock_t begin = clock();
 
-  for (ptrdiff_t k = 0; k < 100; k++) {
+  real_t a = 0;
+  for (ptrdiff_t k = 0; k < repeat; k++) {
     a += accumulate(arr, n);
   }
 
-  printf("result=%g\n", a);
+  clock_t end = clock();
+  double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+
   free(arr);
+
+  printf("#----------------------\n");
+  printf("Executable:\t%s\n", argv[0]);
+  printf("Problem-size:\t%ld\n", n);
+  printf("Repeat:\t\t%ld\n", repeat);
+  printf("Throughput:\t%g [GB/s]\n", 1e-9 * (n * repeat)/time_spent);
+  printf("TTS:\t\t%g [s]\n", time_spent);
+  printf("Result:\t\t%g\n", a);
+  printf("#----------------------\n");
   return 0;
 }

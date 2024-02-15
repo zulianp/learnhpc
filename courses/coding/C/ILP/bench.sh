@@ -23,51 +23,28 @@ fi
 set -e
 # set -x
 
-rm -f *.exe
-
-function measure_time()
-{
-	echo "Running" $@
-
-	sys=`uname -s`
-	data_cmd=date
-	if [[ "Darwin" == "$sys" ]]
-	then
-		# brew install coreutils
-		data_cmd=gdate
-	fi
-
-	ts=$($data_cmd +%s%N)
-	$@
-	echo $((($($data_cmd +%s%N) - $ts)/1000)) "microseconds"
-
-
-}
-
-cc  $CFLAGS main.c acc_Vanilla.c -o acc_Vanilla.exe
-cc  $CFLAGS main.c acc_DLP.c -o acc_DLP.exe
-# cc  $CFLAGS main.c acc_ILP_DLP.c -o acc_ILP_DLP.exe
-cc  $CFLAGS main.c acc_Implicit_ILP_DLP.c -o acc_ILP_DLP.exe
-cc  $CFLAGS main.c acc_Implicit_ILP.c -o acc_ILP.exe
+cc  $CFLAGS main.c acc_Vanilla.c -o PlainC
+cc  $CFLAGS main.c acc_DLP.c -o ExDLP
+cc  $CFLAGS main.c acc_ILP_DLP.c -o ExCombinedDLPILP
+cc  $CFLAGS main.c acc_Implicit_ILP_DLP.c -o ImCombinedILPDLP
+cc  $CFLAGS main.c acc_Implicit_ILP.c -o ImILP
 
 c++ $CFLAGS -std=c++17 -fno-exceptions -fno-rtti -c acc_std.cpp 
-cc  $CFLAGS main.c acc_std.o -o acc_std.exe
+cc  $CFLAGS main.c acc_std.o -o STLAccumulate
+
+executables=("./PlainC" "./ExDLP" "./ExCombinedDLPILP" "./ImCombinedILPDLP" "./ImILP" "./STLAccumulate")
 
 a=(10 100 10000 1000000 10000000 100000000 1000000000)
 # a=(10 100 10000 1000000 10000000 100000000)
+# a=(10 100 10000 1000000)
 
-echo "std-c++" > stdcpp.txt
-echo "C vanilla" > C_vanilla.txt
-echo "C_ILP_DLP" > C_ILP_DLP.txt
-echo "C_DLP" > C_DLP.txt
-echo "C_ILP" > C_ILP.txt
+repeat=50
 
 if [[ -d "dataset" ]]
 then
 	echo "Using available dataset folder!"
 else
 	mkdir -p dataset
-
 
 for n in ${a[@]}
 do
@@ -76,47 +53,44 @@ do
 done
 fi
 
+echo "# log.txt" > log.txt
+
 for n in ${a[@]}
 do
-	echo "Running size $n"
-	measure_time ./acc_Vanilla.exe $n "dataset/data_"$n"."$np_real".raw" >> C_vanilla.txt
-	measure_time ./acc_ILP_DLP.exe $n "dataset/data_"$n"."$np_real".raw" >> C_ILP_DLP.txt
-	# gprof ./acc_ILP_DLP.exe gmon.out > "analysis_"$n".txt"
-	measure_time ./acc_DLP.exe 	   $n "dataset/data_"$n"."$np_real".raw" >> C_DLP.txt
-	measure_time ./acc_ILP.exe 	   $n "dataset/data_"$n"."$np_real".raw" >> C_ILP.txt
-	measure_time ./acc_std.exe 	   $n "dataset/data_"$n"."$np_real".raw" >> stdcpp.txt
+	echo "# Running size $n" >> log.txt
+	for e in ${executables[@]}
+	do
+		# echo "# Exec $e"
+		$e $n "dataset/data_"$n"."$np_real".raw" $repeat >> log.txt
+	done
 done
 
-echo "-----------------------"
-echo "timings (microseconds)"
-echo "-----------------------"
+rm -f TTS.csv
+rm -f TP.csv
+# echo "Version,TTS [s],Throughput [GB/s], n" > table.csv
 
-echo "C++ std lib accumulate"
-cat stdcpp.txt 		| grep seconds | awk '{print $1}' | tee e1.txt
-echo "C vanilla" 
-cat C_vanilla.txt 	| grep seconds | awk '{print $1}' | tee e2.txt
-echo "C ILP"
-cat C_ILP.txt 	| grep seconds | awk '{print $1}' | tee e3.txt
-echo "C ILP/DLP"
-cat C_ILP_DLP.txt 	| grep seconds | awk '{print $1}' | tee e4.txt
-echo "C DLP"
-cat C_DLP.txt 	| grep seconds | awk '{print $1}' | tee e5.txt
+grep -A5 ${executables[0]} log.txt > temp.txt
+header=`grep "size" temp.txt  | awk '{print $2}' | tr '\n' ',' | tr -d ' '` 
+echo "Size,$header" | sed 's/.$//' > TTS.csv
+echo "Size,$header" | sed 's/.$//' > TP.csv
 
-paste e1.txt e2.txt e3.txt e4.txt e5.txt > timings.txt
 
-echo "-----------------------"
-echo "results"
-echo "-----------------------"
+for e in ${executables[@]}
+do
+	grep -A5 "$e" log.txt > temp.txt
+	cat temp.txt
+	
+	name=`echo $e | tr -d './' | tr '_' ' '`
+	tts=`grep TTS temp.txt | awk '{print $2}' | tr '\n' ',' | tr -d ' '`
+	tp=`grep Throughput temp.txt | awk '{print $2}' | tr '\n' ',' | tr -d ' '`
+	echo "$name,$tts" | sed 's/.$//' >> TTS.csv
+	echo "$name,$tp" | sed 's/.$//' >> TP.csv
+done
 
-echo "C++ std lib accumulate"
-cat stdcpp.txt | grep result | tr 'result=' ' '
-echo "C vanilla" 
-cat C_vanilla.txt | grep result | tr 'result=' ' '
-echo "C ILP"
-cat C_ILP.txt | grep result | tr 'result=' ' '
-echo "C ILP/DLP"
-cat C_ILP_DLP.txt | grep result | tr 'result=' ' '
-echo "C DLP"
-cat C_DLP.txt | grep result | tr 'result=' ' '
+echo "TTS"
+cat TTS.csv
+echo "TP"
+cat TP.csv
 
-./make_plot.py
+./make_plot.py "Throughput [GB/s]" TP.csv TP.png
+./make_plot.py "TTS [s]" TTS.csv TTS.png

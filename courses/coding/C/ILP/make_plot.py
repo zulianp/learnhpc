@@ -1,34 +1,36 @@
 #!/usr/bin/env python3
 
-
+import pandas as pd
 import matplotlib.pyplot as plt
+import pdb
 import numpy as np
+import sys
+print(f'{sys.argv}')
 
-# Define file paths
-file_paths = ["e1.txt", "e2.txt", "e3.txt", "e4.txt"]
+# Specify the file path
+file_path = sys.argv[2]
 
-# Create empty list for data
-data_arrays = []
+# Read the CSV file into a DataFrame
+df = pd.read_csv(file_path,index_col=0, header=None).T
 
-# Read data from each file
-for file_path in file_paths:
-    data = np.loadtxt(file_path)  # Adjust separator if needed
-    data = data.astype(np.float32) / 1e6
-    data_arrays.append(data)
+x_labels = df.columns[1:]  
 
-# Create labels for each array
-labels = ["C++ std lib", "C vanilla", "C ILP", "C ILP/DLP"]
+# print(df['Size'])
 
-# Create a line plot
-plt.figure(figsize=(8, 6))  # Set the figure size
-for i, data in enumerate(data_arrays):
-    plt.plot(data, label=labels[i])
+x = df['Size'].values.astype(dtype=np.int64)
+print(x)
+
+for key in df[0:0]:
+    if key == "Size":
+        continue
+    print(key)
+    y = df[key].values
+    plt.plot(x, y, label=key)
 
 # Add labels and title
-plt.xlabel("X-axis")
-plt.ylabel("seconds")
+plt.xlabel("Array size")
+plt.ylabel(sys.argv[1])
 plt.title(" Accumulate")
-plt.yscale('log') 
 
 # Add legend
 plt.legend()
@@ -36,5 +38,5 @@ plt.legend()
 # Add grid
 plt.grid(True)
 
-# Show the plot
-plt.show()
+# # Show the plot
+plt.savefig(sys.argv[3])
