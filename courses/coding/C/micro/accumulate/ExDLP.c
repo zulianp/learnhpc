@@ -13,7 +13,7 @@ real_t accumulate(const real_t *x, const ptrdiff_t n) {
   // const real_t *arr = __builtin_assume_aligned(x, ALIGN_SIZE);
   const real_t *arr = x;
 
-  vreal_t acc = {0., 0., 0., 0.};
+  vreal_t acc = {0.};
 
   ptrdiff_t packed_size = (n / (DLP_SIZE)) * (DLP_SIZE);
 
