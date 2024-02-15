@@ -17,7 +17,7 @@ for file_path in file_paths:
     data_arrays.append(data)
 
 # Create labels for each array
-labels = ["C++ std lib", "C vanilla", "C DLP", "C ILP/DLP"]
+labels = ["C++ std lib", "C vanilla", "C ILP", "C ILP/DLP"]
 
 # Create a line plot
 plt.figure(figsize=(8, 6))  # Set the figure size
