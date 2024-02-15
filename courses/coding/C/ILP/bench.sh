@@ -47,10 +47,12 @@ function measure_time()
 
 }
 
-cc  $CFLAGS acc_Vanilla.c -o acc_Vanilla.exe
-cc  $CFLAGS acc_DLP.c -o acc_DLP.exe
-cc  $CFLAGS acc_ILP_DLP.c -o acc_ILP_DLP.exe
-c++ $CFLAGS -std=c++17 -fno-exceptions -fno-rtti acc_std.cpp -o acc_std.exe
+cc  $CFLAGS main.c acc_Vanilla.c -o acc_Vanilla.exe
+cc  $CFLAGS main.c acc_DLP.c -o acc_DLP.exe
+cc  $CFLAGS main.c acc_ILP_DLP.c -o acc_ILP_DLP.exe
+
+c++ $CFLAGS -std=c++17 -fno-exceptions -fno-rtti -c acc_std.cpp 
+cc  $CFLAGS main.c acc_std.o -o acc_std.exe
 
 a=(10 100 10000 1000000 10000000 100000000 1000000000)
 # a=(10 100 10000 1000000 10000000)
