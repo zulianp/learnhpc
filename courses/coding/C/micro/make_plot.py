@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import pdb
 import numpy as np
 import sys
-print(f'{sys.argv}')
 
 # Specify the file path
 file_path = sys.argv[2]
@@ -15,15 +14,11 @@ df = pd.read_csv(file_path,index_col=0, header=None).T
 
 x_labels = df.columns[1:]  
 
-# print(df['Size'])
-
 x = df['Size'].values.astype(dtype=np.int64)
-print(x)
 
 for key in df[0:0]:
     if key == "Size":
         continue
-    print(key)
     y = df[key].values
     plt.plot(x, y, label=key)
 
