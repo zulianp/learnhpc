@@ -28,8 +28,10 @@ fi
 
 set -e
 
-c_sources=`(ls accumulate/*.c)`
-cpp_sources=`(ls accumulate/*.cpp)`
+c_sources=`(ls "$compute_kernel"/*.c)`
+cpp_sources=`(ls "$compute_kernel"/*.cpp)`
+neon_sources=`(ls "$compute_kernel"/neon/*.c)`
+
 
 rm ./bin/*
 rm ./obj/*
@@ -52,6 +54,16 @@ do
 	$CXX $CFLAGS -std=c++17 -fno-exceptions -fno-rtti -c $src -o obj/"$name".o
 	$CC  $CFLAGS main.c obj/"$name".o -o  bin/$name
 done	
+
+if [[ "arm64" == "$march" ]]
+then
+	for src in ${neon_sources[@]}
+	do
+		fullname=`basename $src`
+		name="${fullname%.*}"
+		$CC $CFLAGS main.c $src -o bin/$name
+	done	
+fi
 
 executables=`(ls bin)`
 
