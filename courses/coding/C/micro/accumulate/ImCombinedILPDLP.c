@@ -10,10 +10,12 @@ real_t accumulate(const real_t *x, const ptrdiff_t n) {
     const real_t *buff = &x[i];
 
 #pragma unroll(ILP_SIZE)
+#pragma GCC unroll 2
     for (int i_ilp = 0; i_ilp < ILP_SIZE; i_ilp++) {
       const real_t *buff_simd = &buff[i_ilp * DLP_SIZE];
 
 #pragma unroll(DLP_SIZE)
+#pragma GCC unroll 4
       for (int i_dlp = 0; i_dlp < DLP_SIZE; i_dlp++) {
         acc[i_ilp] += buff_simd[i_dlp];
       }

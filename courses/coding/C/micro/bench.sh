@@ -5,8 +5,9 @@ march=`arch`
 CC=cc
 CXX=c++
 
+a=(1000000 2000000 4000000 6000000 8000000 10000000)
 # a=(10 100 10000 1000000 10000000 100000000 1000000000)
-a=(10 100 10000 1000000 10000000 100000000)
+# a=(10 100 10000 1000000 10000000 100000000)
 # a=(10 100 10000 1000000)
 repeat=100
 
@@ -35,16 +36,19 @@ neon_sources=`(ls "$compute_kernel"/neon/*.c)`
 
 rm -rf ./bin
 rm -rf ./obj
+rm -rf ./assembly
 
 mkdir -p ./bin
 mkdir -p ./obj
 mkdir -p ./figures
+mkdir -p ./assembly
 
 for src in ${c_sources[@]}
 do
 	fullname=`basename $src`
 	name="${fullname%.*}"
 	$CC $CFLAGS main.c $src -o bin/$name
+	$CC $CFLAGS -S $src -o assembly/"$name".s
 done	
 
 for src in ${cpp_sources[@]}
@@ -110,5 +114,5 @@ do
 	echo "$name,$tp" | sed 's/.$//' >> TP.csv
 done
 
-./make_plot.py "Throughput [GB/s]" 	TP.csv 	figures/$"compute_kernel"_TP.png
-./make_plot.py "TTS [s]" 			TTS.csv figures/$"compute_kernel"_TTS.png
+./make_plot.py "Throughput [GB/s]" 	TP.csv 	figures/$"compute_kernel"_TP.pdf
+./make_plot.py "TTS [s]" 			TTS.csv figures/$"compute_kernel"_TTS.pdf

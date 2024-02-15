@@ -26,6 +26,7 @@ for key in df[0:0]:
 plt.xlabel("Array size")
 plt.ylabel(sys.argv[1])
 plt.title(" Accumulate")
+plt.xticks(x)
 
 # Add legend
 plt.legend()
