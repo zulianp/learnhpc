@@ -32,13 +32,13 @@ cc  $CFLAGS main.c acc_Implicit_ILP.c -o ImILP
 c++ $CFLAGS -std=c++17 -fno-exceptions -fno-rtti -c acc_std.cpp 
 cc  $CFLAGS main.c acc_std.o -o STLAccumulate
 
-executables=("./PlainC" "./ExDLP" "./ExCombinedDLPILP" "./ImCombinedILPDLP" "./ImILP" "./STLAccumulate")
+executables=("./PlainC" "./ExCombinedDLPILP" "./ImCombinedILPDLP" "./ImILP" "./STLAccumulate") #"./ExDLP"
 
-a=(10 100 10000 1000000 10000000 100000000 1000000000)
-# a=(10 100 10000 1000000 10000000 100000000)
+# a=(10 100 10000 1000000 10000000 100000000 1000000000)
+a=(10 100 10000 1000000 10000000 100000000)
 # a=(10 100 10000 1000000)
 
-repeat=50
+repeat=100
 
 if [[ -d "dataset" ]]
 then
@@ -60,20 +60,17 @@ do
 	echo "# Running size $n" >> log.txt
 	for e in ${executables[@]}
 	do
-		# echo "# Exec $e"
 		$e $n "dataset/data_"$n"."$np_real".raw" $repeat >> log.txt
 	done
 done
 
 rm -f TTS.csv
 rm -f TP.csv
-# echo "Version,TTS [s],Throughput [GB/s], n" > table.csv
 
 grep -A5 ${executables[0]} log.txt > temp.txt
 header=`grep "size" temp.txt  | awk '{print $2}' | tr '\n' ',' | tr -d ' '` 
 echo "Size,$header" | sed 's/.$//' > TTS.csv
 echo "Size,$header" | sed 's/.$//' > TP.csv
-
 
 for e in ${executables[@]}
 do
@@ -92,5 +89,5 @@ cat TTS.csv
 echo "TP"
 cat TP.csv
 
-./make_plot.py "Throughput [GB/s]" TP.csv TP.png
-./make_plot.py "TTS [s]" TTS.csv TTS.png
+./make_plot.py "Throughput [GB/s]" 	TP.csv 	TP.png
+./make_plot.py "TTS [s]" 			TTS.csv TTS.png
