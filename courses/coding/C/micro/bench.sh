@@ -33,8 +33,8 @@ cpp_sources=`(ls "$compute_kernel"/*.cpp)`
 neon_sources=`(ls "$compute_kernel"/neon/*.c)`
 
 
-rm ./bin/*
-rm ./obj/*
+rm -rf ./bin
+rm -rf ./obj
 
 mkdir -p ./bin
 mkdir -p ./obj
