@@ -36,7 +36,7 @@ typedef double real_t;
   typedef double __attribute__((vector_size(sizeof(double) * DLP_SIZE))) vreal_t;
 #endif
 
-inline static void vector_copy(const real_t *const a, vreal_t *const v) {
+inline static void vector_load(const real_t *const a, vreal_t *const v) {
 #ifdef __ARM_NEON
   *v = vld1q_f64(a);
 #else
@@ -47,6 +47,19 @@ inline static void vector_copy(const real_t *const a, vreal_t *const v) {
 #endif
 #endif
 }
+
+inline static void vector_store(real_t *const a, const vreal_t v) {
+#ifdef __ARM_NEON
+  #error "IMPLEMENT ME"
+#else
+#ifdef __AVX2__
+  _mm256_store_pd(a, v);
+#else
+  __builtin_ia32_storeupd256(a, v);
+#endif
+#endif
+}
+
 
 #else // DOUBLE_PRECISION
 
@@ -67,7 +80,7 @@ typedef float real_t;
   typedef float __attribute__((vector_size(sizeof(float) * DLP_SIZE))) vreal_t;
 #endif
 
-inline static void vector_copy(const real_t *const a, vreal_t *const v) {
+inline static void vector_load(const real_t *const a, vreal_t *const v) {
 #ifdef __ARM_NEON
   *v = vld1q_f32(a);
 #else
@@ -75,6 +88,18 @@ inline static void vector_copy(const real_t *const a, vreal_t *const v) {
   *v = _mm256_load_ps(a);
 #else
   *v = __builtin_ia32_loadups256(a);
+#endif
+#endif
+}
+
+inline static void vector_store(real_t *const a, const vreal_t v) {
+#ifdef __ARM_NEON
+  #error "IMPLEMENT ME"
+#else
+#ifdef __AVX2__
+  _mm256_store_ps(a, v);
+#else
+  __builtin_ia32_storeups256(a, v);
 #endif
 #endif
 }

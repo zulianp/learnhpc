@@ -13,19 +13,19 @@ a=(1000000 2000000 4000000 6000000 8000000 10000000 20000000)
 repeat=20
 
 # compute_kernel=accumulate
-compute_kernel=norm
-main=main_reduce.c
+# compute_kernel=norm
+# main=main_reduce.c
 
-# compute_kernel=axpy
-# main=main_binary_inplace.c
+compute_kernel=axpy
+main=main_binary_inplace.c
 
 
-OPTS="-DDOUBLE_PRECISION"
-np_real="float64"
+# OPTS="-DDOUBLE_PRECISION"
+# np_real="float64"
 
 # Comment out to use double precision
-# OPTS="-DSINGLE_PRECISION"
-# np_real="float32"
+OPTS="-DSINGLE_PRECISION"
+np_real="float32"
 
 CFLAGS="-I. -mtune=native -Ofast -DNDEBUG -Wall -pedantic -Dcompute_kernel=$compute_kernel "
 if [[ "arm64" == "$march" ]]
@@ -34,6 +34,7 @@ then
 	CFLAGS="$CFLAGS -march=armv8-a+simd $OPTS"
 else
 	CFLAGS="$CFLAGS -march=core-avx2 $OPTS"
+	# CFLAGS="$CFLAGS -march=skylake-avx512 $OPTS"
 fi
 
 

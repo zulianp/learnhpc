@@ -32,7 +32,7 @@ real_t accumulate(const real_t *x, const ptrdiff_t n) {
       acc[k] += *v;
 #else
       vreal_t v;
-      vector_copy(&buff[k * DLP_SIZE], &v);
+      vector_load(&buff[k * DLP_SIZE], &v);
       acc[k] += v;
 #endif
     }

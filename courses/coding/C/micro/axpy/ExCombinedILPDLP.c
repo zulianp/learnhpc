@@ -10,21 +10,19 @@ void handle_align_err() {
   exit(EXIT_FAILURE);
 }
 
-inline static void micro(const vreal_t alpha, real_t *const __restrict__ l_buff,
-                         const real_t *const __restrict__ r_buff) {
+// inline static
+void micro(const vreal_t alpha, real_t *const __restrict__ l_buff,
+           const real_t *const __restrict__ r_buff) {
   for (int k = 0; k < ILP_SIZE; k += 1) {
     vreal_t lv, rv;
-    vector_copy(&l_buff[k * DLP_SIZE], &lv);
-    vector_copy(&r_buff[k * DLP_SIZE], &rv);
+    vector_load(&l_buff[k * DLP_SIZE], &lv);
+    vector_load(&r_buff[k * DLP_SIZE], &rv);
 
     lv += alpha * rv;
 
     real_t *const res = &l_buff[k * DLP_SIZE];
-#pragma unroll
-#pragma GCC unroll 4
-    for (int d = 0; d < DLP_SIZE; d++) {
-      res[d] = lv[d];
-    }
+
+    vector_store(res, lv);
   }
 }
 
@@ -38,7 +36,7 @@ void axpy(real_t *__restrict__ l, const real_t *__restrict__ r,
     handle_align_err();
   }
 
-  vreal_t alpha = {1};
+  vreal_t alpha = {l[n-1]};
 
   ptrdiff_t packed_size = (n / (ILP_SIZE * DLP_SIZE)) * (ILP_SIZE * DLP_SIZE);
 
