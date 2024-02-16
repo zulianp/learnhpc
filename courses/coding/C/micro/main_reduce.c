@@ -42,7 +42,7 @@ static void *read_array(const char *path, const size_t element_size,
   return ptr;
 }
 
-real_t accumulate(const real_t *x, const ptrdiff_t n);
+real_t compute_kernel(const real_t *x, const ptrdiff_t n);
 
 int main(int argc, char *argv[]) {
   if(argc < 4) {

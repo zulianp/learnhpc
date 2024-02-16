@@ -12,6 +12,10 @@ a=(1000000 2000000 4000000 6000000 8000000 10000000)
 repeat=20
 
 compute_kernel=accumulate
+compute_kernel=norm
+main=main_reduce.c
+
+
 OPTS="-DDOUBLE_PRECISION"
 np_real="float64"
 
@@ -19,7 +23,7 @@ np_real="float64"
 # OPTS="-DSINGLE_PRECISION"
 # np_real="float32"
 
-CFLAGS="-I. -Ofast -DNDEBUG -Wall -pedantic -Dcompute_kernel=$compute_kernel "
+CFLAGS="-I. -mtune=native -Ofast -DNDEBUG -Wall -pedantic -Dcompute_kernel=$compute_kernel "
 if [[ "arm64" == "$march" ]]
 then
 	CFLAGS="$CFLAGS -march=armv8-a+simd $OPTS"
@@ -27,12 +31,13 @@ else
 	CFLAGS="$CFLAGS -march=core-avx2 $OPTS"
 fi
 
-set -e
+
 
 c_sources=`(ls "$compute_kernel"/*.c)`
 cpp_sources=`(ls "$compute_kernel"/*.cpp)`
 neon_sources=`(ls "$compute_kernel"/neon/*.c)`
 
+set -e
 
 rm -rf ./bin
 rm -rf ./obj
@@ -47,7 +52,7 @@ for src in ${c_sources[@]}
 do
 	fullname=`basename $src`
 	name="${fullname%.*}"
-	$CC $CFLAGS main.c $src -o bin/$name
+	$CC $CFLAGS $main $src -o bin/$name
 	$CC $CFLAGS -S $src -o assembly/"$name".s
 done	
 
@@ -56,7 +61,7 @@ do
 	fullname=`basename $src`
 	name="${fullname%.*}"
 	$CXX $CFLAGS -std=c++17 -fno-exceptions -fno-rtti -c $src -o obj/"$name".o
-	$CC  $CFLAGS main.c obj/"$name".o -o  bin/$name
+	$CC  $CFLAGS $main obj/"$name".o -o  bin/$name
 done	
 
 if [[ "arm64" == "$march" ]]
@@ -65,7 +70,7 @@ then
 	do
 		fullname=`basename $src`
 		name="${fullname%.*}"
-		$CC $CFLAGS main.c $src -o bin/$name
+		$CC $CFLAGS $main $src -o bin/$name
 	done	
 fi
 
@@ -114,5 +119,5 @@ do
 	echo "$name,$tp" | sed 's/.$//' >> TP.csv
 done
 
-./make_plot.py "Throughput [GB/s]" 	TP.csv 	figures/$"compute_kernel"_TP.pdf
-./make_plot.py "TTS [ms]" 			TTS.csv figures/$"compute_kernel"_TTS.pdf
+./make_plot.py "Throughput [GB/s]" 	TP.csv 	figures/"$compute_kernel"_TP.pdf
+./make_plot.py "TTS [ms]" 			TTS.csv figures/"$compute_kernel"_TTS.pdf

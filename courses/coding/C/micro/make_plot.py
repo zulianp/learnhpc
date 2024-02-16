@@ -25,7 +25,7 @@ for key in df[0:0]:
 # Add labels and title
 plt.xlabel("Array size")
 plt.ylabel(sys.argv[1])
-plt.title(" Accumulate")
+plt.title("Comparision of vectorized implementations")
 plt.xticks(x)
 
 # Add legend

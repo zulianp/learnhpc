@@ -8,10 +8,15 @@
 
 #ifdef __AVX2__
 #include <immintrin.h>
+#define ALIGN_SIZE 32
+#endif
+
+#ifdef __ARM_NEON
+#define ALIGN_SIZE 64
 #endif
 
 #define ILP_SIZE 2
-#define ALIGN_SIZE 32
+
 
 #ifdef DOUBLE_PRECISION
 
@@ -25,6 +30,8 @@ typedef float64x2_t vreal_t;
 #define vld1q_real vld1q_f64
 #define vpadds_real vpadds_f64
 #define vaddq_real vaddq_f64
+#define vfmaq_real vfmaq_f64
+#define vgetq_lane_real vgetq_lane_f64
 #else
 
 #define DLP_SIZE 4
@@ -55,6 +62,8 @@ typedef float32x4_t vreal_t;
 #define vld1q_real vld1q_f32
 #define vpadds_real vpadds_f32
 #define vaddq_real vaddq_f32
+#define vfmaq_real vfmaq_f32
+#define vgetq_lane_real vgetq_lane_f32
 #else
 
 #define DLP_SIZE 8
